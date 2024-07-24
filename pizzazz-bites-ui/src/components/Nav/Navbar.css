@@ -1,0 +1,33 @@
+.custom-navbar {
+    background-color: black;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .vertical-divider {
+    width: 1px;
+    height: 24px;
+    background-color: #474444;
+    margin: 0 10px;
+    align-self: center;
+  }
+  
+  .nav-contacts {
+    margin-left: 10%;
+  }
+  
+  .nav-link {
+    color: white !important;
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .nav-link:hover {
+    color: #fbba00 !important;
+  }
+  
+  .nav-link.active {
+    color: #fbba00 !important;
+  }
+
+  
