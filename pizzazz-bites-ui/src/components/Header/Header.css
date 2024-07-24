@@ -1,5 +1,5 @@
 .header-container {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.6) !important;
   color: white;
   padding-left: 50px;
   padding-right: 50px;
