@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PizzazzBitesBackend.Data;
+using PizzazzBitesBackend.Repository.Pizza.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ AddServices();
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
+
+var pizzaSeeder = scope.ServiceProvider.GetRequiredService<IPizzaSeeder>();
+await pizzaSeeder.SeedPizza();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,4 +37,5 @@ void AddServices()
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
 }
