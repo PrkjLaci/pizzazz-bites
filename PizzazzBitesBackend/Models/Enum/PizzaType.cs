@@ -2,7 +2,7 @@
 
 public enum PizzaType
 {
-    ItalianAndInternational,
-    Artisan,
-    PizzaAlCarbone
+    ItalianAndInternational = 0,
+    Artisan = 1,
+    PizzaAlCarbone = 2,
 }
