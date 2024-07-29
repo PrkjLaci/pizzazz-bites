@@ -1,0 +1,11 @@
+.isVegetarian-icon {
+    color: green;
+}
+
+.isSpicy-icon {
+    color: red;
+}
+
+.item-card-body {
+    background-color: rgba(0, 0, 0, 0.3);
+}
