@@ -89,7 +89,7 @@ const Header = () => {
             </Nav.Item>
             <Nav.Item className="menu-item">
               <NavLink to="/salad" className="nav-menu-item-link">
-                Salad
+                Salad / Snacks
               </NavLink>
             </Nav.Item>
             <Nav.Item className="menu-item">
