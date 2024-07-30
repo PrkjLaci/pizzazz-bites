@@ -31,13 +31,18 @@ const NewArrivals = () => {
 
   return (
     <div className="new-arrivals-container">
-      {newPizzas.map((pizza) => {
-        return (
-          <div className="new-arrivals-item" key={pizza.id}>
-            <ItemCard item={pizza} />
-          </div>
-        );
-      })}
+      <div className="new-arrivals-header">
+        <h2>New Arrivals</h2>
+      </div>
+      <div className="new-arrivals-items">
+        {newPizzas.map((pizza) => {
+          return (
+            <div className="new-arrivals-item" key={pizza.id}>
+              <ItemCard item={pizza} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
