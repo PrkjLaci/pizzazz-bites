@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TopNavbar from "./components/Nav/TopNavbar.jsx";
 import SiteHeader from "./components/SiteHeader/SiteHeader.jsx";
 import Home from "./pages/Home/Home.jsx";
+import Footer from "../src/components/Footer/Footer.jsx";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <header>
         <TopNavbar />
         <div className="sticky-top">
-        <SiteHeader/>
+          <SiteHeader />
         </div>
       </header>
       <main className="app">
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Routes>
       </main>
+      <Footer />
     </Router>
   );
 }

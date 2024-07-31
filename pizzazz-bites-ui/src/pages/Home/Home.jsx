@@ -7,11 +7,12 @@ import MapComponent from "../../components/MapComponent/MapComponent";
 import eventImages from "../../../utils/eventImages";
 import restaurantImages from "../../../utils/restaurantImages";
 
+
 const Home = () => {
   return (
     <div className="home-container">
       <section className="restaurant-events-carousel">
-        <CarouselComponent carouselItems={eventImages}/>
+        <CarouselComponent carouselItems={eventImages} />
       </section>
 
       <section className="new-arrivals">
@@ -19,10 +20,10 @@ const Home = () => {
       </section>
 
       <section className="restaurant-carousel">
-        <CarouselComponent carouselItems={restaurantImages}/>
+        <CarouselComponent carouselItems={restaurantImages} />
       </section>
 
-      <section>
+      <section className="contact-us">
         <MapComponent />
       </section>
     </div>
