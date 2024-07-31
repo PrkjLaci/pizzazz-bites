@@ -9,3 +9,19 @@
 .item-card-body {
     background-color: rgba(0, 0, 0, 0.3);
 }
+
+/* ItemCard.css */
+
+.img-custom {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-left: 20px;
+  }
+  
+  .card-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

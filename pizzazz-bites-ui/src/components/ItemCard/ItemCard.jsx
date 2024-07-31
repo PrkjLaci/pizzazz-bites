@@ -1,26 +1,40 @@
 import React from "react";
+import {
+  MDBCard,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+} from "mdb-react-ui-kit";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import { IoIosLeaf } from "react-icons/io";
 import { GiChiliPepper } from "react-icons/gi";
 import "./ItemCard.css";
 
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, index }) => {
   return (
-    <Card style={{ width: "18rem", height: "25rem" }}>
-      <Card.Img variant="top" src={item.imageUrl} />
-      <Card.Body className="item-card-body">
-        <Card.Title>
-          {item.name}{" "}
-          {item.isVegetarian && <IoIosLeaf className="isVegetarian-icon" />}
-          {item.isSpicy && <GiChiliPepper className="isSpicy-icon" />}
-        </Card.Title>
-        <Card.Text>
-          {item.ingredients ? item.ingredients : item.decription}
-        </Card.Text>
-        <Button variant="primary">Add to cart</Button>
-      </Card.Body>
-    </Card>
+    <MDBCard style={{ maxWidth: "540px" }}>
+      <MDBRow className="g-0">
+        <MDBCol md="4" className="card-col">
+          <MDBCardImage src={item.imageUrl} alt={index} className="img-custom"/>
+        </MDBCol>
+        <MDBCol md="8">
+          <MDBCardBody>
+            <MDBCardTitle>
+              {item.name}{" "}
+              {item.isVegetarian && <IoIosLeaf className="isVegetarian-icon" />}
+              {item.isSpicy && <GiChiliPepper className="isSpicy-icon" />}
+            </MDBCardTitle>
+            <MDBCardText>
+              <i>{item.ingredients ? item.ingredients : item.decription}</i>
+            </MDBCardText>
+            <Button variant="primary">Add to cart</Button>
+          </MDBCardBody>
+        </MDBCol>
+      </MDBRow>
+    </MDBCard>
   );
 };
 
