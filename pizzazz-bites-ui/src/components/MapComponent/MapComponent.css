@@ -2,13 +2,29 @@
   background-color: rgba(0, 0, 0, 0.5) !important;
   box-shadow: inset 0px 0px 20px 20px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  margin-top: 80px;
   margin-bottom: 80px;
   padding: 40px;
   color: white;
-  display: flex;
-  flex-direction: wrap;
-  justify-content: center;
-  gap: 30px;
-  padding: 30px;
+}
+
+.map-container input, textarea {
+  color: white !important;
+}
+
+.map-container textarea {
+  height: 200px;
+}
+
+.map-container h3 {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.form-label {
+  color: white !important;
 }
