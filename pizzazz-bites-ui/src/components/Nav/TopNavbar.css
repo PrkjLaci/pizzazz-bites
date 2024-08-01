@@ -3,22 +3,17 @@
   }
   
   .vertical-divider {
-    width: 1px;
-    height: 24px;
+    width: 0.08vw;
+    height: 1vw;
     background-color: #474444;
-    margin: 0 10px;
     align-self: center;
-  }
-  
-  .nav-contacts {
-    margin-left: 10%;
   }
   
   .nav-link {
     color: white !important;
     font-size: 1.2rem;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0.1vw;
   }
   
   .nav-link:hover {
