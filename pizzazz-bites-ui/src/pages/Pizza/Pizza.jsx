@@ -4,13 +4,17 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import NavFilter from "../../components/NavFilter/NavFilter";
 import url from "../../../utils/url";
 import ItemTable from "../../components/ItemTable/ItemTable";
+import Pagination from "../../components/Pegination/Pagination";
+import PizzatypeWithDiscription from "../../../utils/PizzatypeWithDiscription";
 
 const Pizza = () => {
   const [clickedPizzaType, setClickedPizzaType] = useState("");
   const [pizzas, setPizzas] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pizzaCount, setPizzaCount] = useState(0);
   const pageSize = 10;
 
-  const fetchPizzas = async (type = "", page = 1) => {
+  const fetchPizzas = async (type = "", page) => {
     if (type === "Show All") type = "";
     if (type === "Italian & International") type = "ItalianAndInternational";
     if (type === "Pizza Al Carbone") type = "PizzaAlCarbone";
@@ -20,7 +24,6 @@ const Pizza = () => {
         type === ""
           ? `${url}/pizzas?page=${page}&pageSize=${pageSize}`
           : `${url}/pizzas/type/${type}?pizzaTypeString=${type}&page=${page}&pageSize=${pageSize}`;
-
       const response = await fetch(endpoint, {
         method: "GET",
         headers: {
@@ -31,6 +34,7 @@ const Pizza = () => {
       if (response.ok) {
         const data = await response.json();
         setPizzas(data.data);
+        setPizzaCount(data.count)
       } else {
         console.error("Failed to fetch pizzas:", response.statusText);
         setError("Failed to fetch pizzas.");
@@ -41,19 +45,28 @@ const Pizza = () => {
   };
 
   useEffect(() => {
-    fetchPizzas(clickedPizzaType);
-  }, [clickedPizzaType]);
+    fetchPizzas(clickedPizzaType, page);
+  }, [clickedPizzaType, page]);
+
+  console.log(pizzaCount);
+  console.log(clickedPizzaType);
 
   return (
     <div className="item-container">
       <NavFilter
         clickedPizzaType={clickedPizzaType}
         setClickedPizzaType={setClickedPizzaType}
+        setPage={setPage}
       />
-      <h1 className="fw-bold">
-        {clickedPizzaType === "Show All" ? "" : clickedPizzaType}
-      </h1>
-      <ItemTable items={pizzas} />
+      <h3 className="fw-bold">
+        {<PizzatypeWithDiscription pizzatype={clickedPizzaType} />}
+      </h3>
+      <ItemTable items={pizzas} clickedPizzaType={clickedPizzaType} page={page}/>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        pizzaCount={pizzaCount}
+      />
     </div>
   );
 };

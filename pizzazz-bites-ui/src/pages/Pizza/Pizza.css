@@ -6,6 +6,10 @@
   color: white !important;
 }
 
+.item-container h3 {
+  text-align: center;
+}
+
 .table-pricing {
     text-align: center;
     width: 20% !important;
