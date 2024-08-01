@@ -16,6 +16,25 @@ public class PizzaController : ControllerBase
         _logger = logger;
         _pizzaRepository = pizzaRepository;
     }
+    
+    [HttpGet("/Pizzas")]
+    public async Task<ActionResult<IEnumerable<Pizza>>> GetPizzas([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        try
+        {
+            return Ok(new
+            {
+                message = "Pizzas found successfully.",
+                data = await _pizzaRepository.GetPizzas(page, pageSize),
+                count = await _pizzaRepository.GetPizzasCount()
+            });
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Can't find pizzas.");
+            return NotFound(new { message = "Can't find pizzas." });
+        }
+    }
 
     [HttpGet("/Pizzas/new")]
     public async Task<ActionResult<IEnumerable<Pizza>>> GetNewPizzas()
@@ -32,13 +51,18 @@ public class PizzaController : ControllerBase
     }
     
     [HttpGet("/Pizzas/type/{pizzaType}")]
-    public async Task<ActionResult<IEnumerable<Pizza>>> GetPizzasByType(string pizzaTypeString)
+    public async Task<ActionResult<IEnumerable<Pizza>>> GetPizzasByType(string pizzaTypeString, [FromQuery] int page, [FromQuery] int pageSize)
     {
         try
         {
             if(Enum.TryParse<PizzaType>(pizzaTypeString, out var pizzaType))
             {
-                return Ok(new { message = "Pizzas found successfully.", data = await _pizzaRepository.GetPizzasByType(pizzaType) });
+                return Ok(new
+                {
+                    message = "Pizzas found successfully.",
+                    data = await _pizzaRepository.GetPizzasByType(pizzaType, page, pageSize),
+                    count = await _pizzaRepository.GetPizzasCountByType(pizzaType)
+                });
             }
             return BadRequest(new { message = "Invalid pizza type." });
         }

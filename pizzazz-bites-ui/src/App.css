@@ -3,8 +3,14 @@ body {
 }
 * {
   font-family: sans-serif;
+  font-size: 1rem;
 }
 
 header {
   display: inline;
+}
+
+.app {
+  padding-left: 15%;
+  padding-right: 15%;
 }
