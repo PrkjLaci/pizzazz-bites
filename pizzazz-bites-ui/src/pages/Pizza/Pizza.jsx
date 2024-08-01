@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  MDBBadge,
-  MDBBtn,
-  MDBTable,
-  MDBTableHead,
-  MDBTableBody,
-} from "mdb-react-ui-kit";
-import { RiShoppingCartLine } from "react-icons/ri";
 import "./Pizza.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import NavFilter from "../../components/NavFilter/NavFilter";
 import url from "../../../utils/url";
+import ItemTable from "../../components/ItemTable/ItemTable";
 
 const Pizza = () => {
   const [clickedPizzaType, setClickedPizzaType] = useState("");
@@ -60,46 +53,7 @@ const Pizza = () => {
       <h1 className="fw-bold">
         {clickedPizzaType === "Show All" ? "" : clickedPizzaType}
       </h1>
-      <MDBTable align="middle">
-        <MDBTableHead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </MDBTableHead>
-        <MDBTableBody>
-          {pizzas.map((pizza) => (
-            <tr key={pizza.id} className="m-5 table-img">
-              <td className="talbe-image">
-                <img
-                  src={pizza.imageUrl}
-                  alt=""
-                  style={{ width: "12rem", height: "12rem" }}
-                  className="item-image"
-                />
-              </td>
-              <td className="table-description">
-                <h4 className="fw-bold mb-0">
-                  {pizza.id <= 9 ? `0${pizza.id}. ` : `${pizza.id}. `}
-                  {pizza.name}
-                </h4>
-                <p className="mb-1">
-                  <i>
-                    {pizza.description ? pizza.description : pizza.ingredients}
-                  </i>
-                </p>
-              </td>
-              <td className="table-pricing">
-                {pizza.price}.-
-                <MDBBtn color="" rounded size="sm" className="cart-button">
-                  <RiShoppingCartLine />
-                </MDBBtn>
-              </td>
-            </tr>
-          ))}
-        </MDBTableBody>
-      </MDBTable>
+      <ItemTable items={pizzas} />
     </div>
   );
 };
