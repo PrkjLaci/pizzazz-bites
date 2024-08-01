@@ -6,13 +6,14 @@ import {
   MDBTableHead,
   MDBTableBody,
 } from "mdb-react-ui-kit";
+import "./ItemTable.css";
 
-const ItemTable = ({ items }) => {
+const ItemTable = ({ items,clickedPizzaType, page }) => {
   return (
     <MDBTable align="middle">
       <MDBTableHead>
         <tr>
-          <th scope="col"></th>
+          <th scope="col" className="pizza-table-nav">Pizza » {clickedPizzaType} » {page} page</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
