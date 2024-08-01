@@ -32,7 +32,7 @@ const Header = () => {
     >
       <Navbar className="header-info-items">
         <Container>
-          <Nav className="mx-auto d-flex justify-content-between w-100">
+          <Nav className="mx-auto d-flex justify-content-center">
             <Nav.Item className="d-flex align-items-center">
               <p className="mb-0">+36 1234-56-78</p>
             </Nav.Item>
@@ -69,7 +69,7 @@ const Header = () => {
                 to="/italian-and-international-pizza"
                 className="nav-menu-item-link"
               >
-                Italian & International Pizza
+                Pizza
               </NavLink>
             </Nav.Item>
             <Nav.Item className="menu-item">

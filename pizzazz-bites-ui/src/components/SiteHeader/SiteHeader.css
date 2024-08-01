@@ -1,19 +1,19 @@
 .header-container {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  padding-left: 50px;
-  padding-right: 50px;
 }
 
 .header-info-items .logo img {
-  height: 50px;
+  height: 3vw;
   width: auto;
   top: 0;
+  gap: 1vw;
 }
 
 .header-info-items .d-flex {
   flex: 1;
   text-align: center;
+  justify-content: center;
 }
 
 .search-icon,
@@ -37,10 +37,11 @@
 .nav-menu-item-link:hover {
   text-decoration: underline;
   text-decoration-color: #fbba00;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 5px;
+  text-decoration-thickness: 0.1vw;
+  text-underline-offset: 0.3vw;
 }
 
 .navbar {
-  box-shadow: none !important;
+  box-shadow: none !important; 
 }
+
