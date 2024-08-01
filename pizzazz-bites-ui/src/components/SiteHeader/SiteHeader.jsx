@@ -66,7 +66,7 @@ const Header = () => {
           <Nav className="mx-auto d-flex justify-content-between w-100 gap-4">
             <Nav.Item className="menu-item">
               <NavLink
-                to="/italian-and-international-pizza"
+                to="/pizzas"
                 className="nav-menu-item-link"
               >
                 Pizza
