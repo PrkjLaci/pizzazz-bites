@@ -51,4 +51,30 @@ public class PizzaRepository : IPizzaRepository
             throw new Exception("Cannot get pizzas by type.");
         }
     }
+    
+    public async Task<int> GetPizzasCount()
+    {
+        try
+        {
+            return await _context.Pizzas.CountAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Cannot get pizzas count.");
+        }
+    }
+    
+    public async Task<int> GetPizzasCountByType(PizzaType pizzaType)
+    {
+        try
+        {
+            return await _context.Pizzas.Where(p => p.PizzaType == pizzaType).CountAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Cannot get pizzas count by type.");
+        }
+    }
 }
