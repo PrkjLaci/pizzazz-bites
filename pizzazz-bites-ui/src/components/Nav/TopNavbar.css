@@ -17,8 +17,8 @@
   }
   
   .nav-link:hover {
+    background-color: initial !important;
     color: #fbba00 !important;
-    background-color: black !important;
   }
 
   
