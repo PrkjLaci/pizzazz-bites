@@ -22,7 +22,12 @@ public class PizzaController : ControllerBase
     {
         try
         {
-            return Ok(new { message = "Pizzas found successfully.", data = await _pizzaRepository.GetPizzas(page, pageSize)});
+            return Ok(new
+            {
+                message = "Pizzas found successfully.",
+                data = await _pizzaRepository.GetPizzas(page, pageSize),
+                count = await _pizzaRepository.GetPizzasCount()
+            });
         }
         catch (Exception e)
         {
@@ -52,7 +57,12 @@ public class PizzaController : ControllerBase
         {
             if(Enum.TryParse<PizzaType>(pizzaTypeString, out var pizzaType))
             {
-                return Ok(new { message = "Pizzas found successfully.", data = await _pizzaRepository.GetPizzasByType(pizzaType, page, pageSize) });
+                return Ok(new
+                {
+                    message = "Pizzas found successfully.",
+                    data = await _pizzaRepository.GetPizzasByType(pizzaType, page, pageSize),
+                    count = await _pizzaRepository.GetPizzasCountByType(pizzaType)
+                });
             }
             return BadRequest(new { message = "Invalid pizza type." });
         }
