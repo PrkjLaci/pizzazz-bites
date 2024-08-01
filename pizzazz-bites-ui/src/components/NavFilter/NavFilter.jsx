@@ -19,15 +19,14 @@ import {
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "./NavFilter.css";
 
-const NavFilter = ({ clickedPizzaType, setClickedPizzaType }) => {
+const NavFilter = ({ clickedPizzaType, setClickedPizzaType, setPage }) => {
   const [openBasic, setOpenBasic] = useState(false);
 
   const handlePizzaTypeClick = (e) => {
     e.preventDefault();
-
+    setPage(1);
     setClickedPizzaType(e.target.text);
   };
-  console.log(clickedPizzaType);
 
   return (
     <div className="d-flex">
