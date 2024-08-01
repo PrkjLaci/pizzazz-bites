@@ -1,0 +1,38 @@
+.item-container {
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+  padding: 1vw;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+}
+
+.table-pricing {
+    text-align: center;
+    width: 20% !important;
+}
+
+.table-image {
+    object-fit:cover !important;
+    
+}
+
+.item-container td {
+  color: white !important;
+}
+
+.table-description {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  width: 45% !important;
+}
+
+.item-image {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.cart-button {
+    font-size: 1.5rem;
+    margin-left: 1vw;
+}
