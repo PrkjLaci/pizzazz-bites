@@ -13,7 +13,7 @@ const ItemTable = ({ items,clickedPizzaType, page }) => {
     <MDBTable align="middle">
       <MDBTableHead>
         <tr>
-          <th scope="col" className="pizza-table-nav">Pizza » {clickedPizzaType} » {page} page</th>
+          <th scope="col" className="pizza-table-nav">Pizza » {clickedPizzaType === "" ? "Show All" : clickedPizzaType} » {page} page</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
