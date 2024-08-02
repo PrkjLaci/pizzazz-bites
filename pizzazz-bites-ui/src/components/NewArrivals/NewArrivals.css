@@ -16,6 +16,10 @@
     gap: 30px;
 }
 
+.card {
+    height: 12vw !important;
+}
+
 .new-arrivals-header {
     color: white;
     text-align: center;
