@@ -30,6 +30,7 @@ const ItemCard = ({ item, index }) => {
             <MDBCardText>
               <i>{item.ingredients ? item.ingredients : item.decription}</i>
             </MDBCardText>
+            <MDBCardText>{item.price}.-</MDBCardText>
             <Button variant="primary">Add to cart</Button>
           </MDBCardBody>
         </MDBCol>
