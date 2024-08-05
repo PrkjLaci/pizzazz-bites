@@ -13,6 +13,12 @@ const Pizza = () => {
   const [page, setPage] = useState(1);
   const [pizzaCount, setPizzaCount] = useState(0);
   const pageSize = 10;
+  const pizzaTypes = [
+    "Italian & International",
+    "Artisan",
+    "Pizza Al Carbone",
+    "Show All",
+  ];
 
   const fetchPizzas = async (type = "", page) => {
     if (type === "Show All") type = "";
@@ -34,7 +40,7 @@ const Pizza = () => {
       if (response.ok) {
         const data = await response.json();
         setPizzas(data.data);
-        setPizzaCount(data.count)
+        setPizzaCount(data.count);
       } else {
         console.error("Failed to fetch pizzas:", response.statusText);
         setError("Failed to fetch pizzas.");
@@ -48,25 +54,25 @@ const Pizza = () => {
     fetchPizzas(clickedPizzaType, page);
   }, [clickedPizzaType, page]);
 
-  console.log(pizzaCount);
-  console.log(clickedPizzaType);
-
   return (
     <div className="item-container">
       <NavFilter
-        clickedPizzaType={clickedPizzaType}
-        setClickedPizzaType={setClickedPizzaType}
+        setClickedItemType={setClickedPizzaType}
         setPage={setPage}
+        itemTypes={pizzaTypes}
+        dropdownTitle="Pizza Types"
+        inputPlaceholder="Search for pizzas..."
       />
       <h3 className="fw-bold">
         {<PizzatypeWithDiscription pizzatype={clickedPizzaType} />}
       </h3>
-      <ItemTable items={pizzas} clickedPizzaType={clickedPizzaType} page={page}/>
-      <Pagination
+      <ItemTable
+        itemName="Pizza"
+        items={pizzas}
+        clickedItemType={clickedPizzaType}
         page={page}
-        setPage={setPage}
-        pizzaCount={pizzaCount}
       />
+      <Pagination page={page} setPage={setPage} pizzaCount={pizzaCount} />
     </div>
   );
 };
