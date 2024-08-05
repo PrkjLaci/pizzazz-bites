@@ -8,13 +8,13 @@ import {
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "./Pagination.css";
 
-const Pagination = ({ page, setPage, pizzaCount }) => {
+const Pagination = ({ page, setPage, itemCount }) => {
   const handleDisablePrevious = () => {
     return page === 1 ? { disabled: true } : {};
   };
 
   const hadnleDisableNext = () => {
-    return page === Math.ceil(pizzaCount / 10) ? { disabled: true } : {};
+    return page === Math.ceil(itemCount / 10) ? { disabled: true } : {};
   };
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Pagination = ({ page, setPage, pizzaCount }) => {
           <span aria-hidden="true">«</span>
         </MDBPaginationLink>
       </MDBPaginationItem>
-      {[...Array(Math.ceil(pizzaCount / 10))].map((_, index) => (
+      {[...Array(Math.ceil(itemCount / 10))].map((_, index) => (
         <MDBPaginationItem key={index} active={index + 1 === page}>
           <MDBPaginationLink onClick={() => setPage(index + 1)} href="#">
             {index + 1}

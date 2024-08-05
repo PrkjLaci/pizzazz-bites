@@ -72,7 +72,7 @@ const Pizza = () => {
         clickedItemType={clickedPizzaType}
         page={page}
       />
-      <Pagination page={page} setPage={setPage} pizzaCount={pizzaCount} />
+      <Pagination page={page} setPage={setPage} itemCount={pizzaCount} />
     </div>
   );
 };
