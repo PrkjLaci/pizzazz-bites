@@ -1,6 +1,6 @@
 ﻿namespace PizzazzBitesBackend.Repository.Dessert.Seeder;
 
-public class IDessertSeeder
+public interface IDessertSeeder
 {
-    
+    Task SeedDesserts();
 }
