@@ -8,12 +8,15 @@ import {
 } from "mdb-react-ui-kit";
 import "./ItemTable.css";
 
-const ItemTable = ({ items,clickedPizzaType, page }) => {
+const ItemTable = ({ itemName, items, clickedItemType, page }) => {
   return (
     <MDBTable align="middle">
       <MDBTableHead>
         <tr>
-          <th scope="col" className="pizza-table-nav">Pizza » {clickedPizzaType === "" ? "Show All" : clickedPizzaType} » {page} page</th>
+          <th scope="col" className="item-table-nav">
+            {itemName} » {clickedItemType === "" ? "Show All" : clickedItemType}{" "}
+            » {page} page
+          </th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
