@@ -19,13 +19,19 @@ import {
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "./NavFilter.css";
 
-const NavFilter = ({ clickedPizzaType, setClickedPizzaType, setPage }) => {
+const NavFilter = ({
+  setClickedItemType,
+  setPage,
+  itemTypes,
+  dropdownTitle,
+  inputPlaceholder,
+}) => {
   const [openBasic, setOpenBasic] = useState(false);
 
-  const handlePizzaTypeClick = (e) => {
+  const handleItemTypeClick = (e) => {
     e.preventDefault();
     setPage(1);
-    setClickedPizzaType(e.target.text);
+    setClickedItemType(e.target.text);
   };
 
   return (
@@ -44,34 +50,20 @@ const NavFilter = ({ clickedPizzaType, setClickedPizzaType, setPage }) => {
               <MDBNavbarItem>
                 <MDBDropdown>
                   <MDBDropdownToggle tag="a" className="nav-link" role="button">
-                    Pizza Types
+                    {dropdownTitle}
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem
-                      link
-                      onClick={(e) => handlePizzaTypeClick(e)}
-                    >
-                      Italian & International
-                    </MDBDropdownItem>
-                    <MDBDropdownItem
-                      link
-                      onClick={(e) => handlePizzaTypeClick(e)}
-                    >
-                      Artisan
-                    </MDBDropdownItem>
-                    <MDBDropdownItem
-                      link
-                      onClick={(e) => handlePizzaTypeClick(e)}
-                    >
-                      Pizza Al Carbone
-                    </MDBDropdownItem>
-                    <hr />
-                    <MDBDropdownItem
-                      link
-                      onClick={(e) => handlePizzaTypeClick(e)}
-                    >
-                      Show All
-                    </MDBDropdownItem>
+                    {itemTypes.map((itemType, i) => {
+                      return (
+                        <MDBDropdownItem
+                          key={i}
+                          link
+                          onClick={(e) => handleItemTypeClick(e)}
+                        >
+                          {itemType}
+                        </MDBDropdownItem>
+                      );
+                    })}
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavbarItem>
@@ -81,7 +73,7 @@ const NavFilter = ({ clickedPizzaType, setClickedPizzaType, setPage }) => {
                   <input
                     type="search"
                     className="form-control"
-                    placeholder="Search Pizza..."
+                    placeholder={inputPlaceholder}
                     aria-label="Search"
                   />
                   <MDBBtn color="primary" type="button">
