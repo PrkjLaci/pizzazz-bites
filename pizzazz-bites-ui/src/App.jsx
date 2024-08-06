@@ -6,6 +6,7 @@ import TopNavbar from "./components/Nav/TopNavbar.jsx";
 import SiteHeader from "./components/SiteHeader/SiteHeader.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Pizza from "./pages/Pizza/Pizza.jsx";
+import Dessert from "./pages/Dessert/Dessert.jsx";
 import Footer from "../src/components/Footer/Footer.jsx";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pizzas" element={<Pizza />} />
+          <Route path="/desserts" element={<Dessert />} />
         </Routes>
       </main>
       <Footer />
