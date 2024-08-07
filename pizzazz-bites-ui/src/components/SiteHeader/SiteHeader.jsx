@@ -9,7 +9,7 @@ import calculateBackgroundColor from "../../../utils/calculateBackgroundColor";
 import "./SiteHeader.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Header = () => {
+const SiteHeader = ({ siteHeaderItems, setClickedItemType, setPage }) => {
   const [windowScroll, setWindowScroll] = useState(0);
 
   useEffect(() => {
@@ -64,39 +64,21 @@ const Header = () => {
       <Navbar className="header-menu-items">
         <Container>
           <Nav className="mx-auto d-flex justify-content-between w-100 gap-4">
-            <Nav.Item className="menu-item">
-              <NavLink
-                to="/pizzas"
-                className="nav-menu-item-link"
-              >
-                Pizza
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item className="menu-item">
-              <NavLink to="/desserts" className="nav-menu-item-link">
-                Desserts
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item className="menu-item">
-              <NavLink to="/soft-drink" className="nav-menu-item-link">
-                Soft drink
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item className="menu-item">
-              <NavLink to="/beer" className="nav-menu-item-link">
-                Beer
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item className="menu-item">
-              <NavLink to="/salad" className="nav-menu-item-link">
-                Salad / Snacks
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item className="menu-item">
-              <NavLink to="/dressing-cheese" className="nav-menu-item-link">
-                Dressing / Cheese
-              </NavLink>
-            </Nav.Item>
+            {siteHeaderItems.map((item, i) => {
+              return (
+                <Nav.Item key={i} className="menu-item">
+                  <NavLink
+                    to={item.route}
+                    className="nav-menu-item-link"
+                    onClick={() => {
+                      setPage(1), setClickedItemType("");
+                    }}
+                  >
+                    {item.menuType}
+                  </NavLink>
+                </Nav.Item>
+              );
+            })}
           </Nav>
         </Container>
       </Navbar>
@@ -104,4 +86,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default SiteHeader;
