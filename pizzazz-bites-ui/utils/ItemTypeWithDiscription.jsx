@@ -1,6 +1,5 @@
-const PizzatypeWithDiscription = ({pizzatype}) => {
-  console.log(pizzatype);
-  switch (pizzatype) {
+const ItemTypeWithDiscription = ({ clickedItemType }) => {
+  switch (clickedItemType) {
     case "Italian & International":
       return (
         <>
@@ -37,7 +36,27 @@ const PizzatypeWithDiscription = ({pizzatype}) => {
           </p>
         </>
       );
+    case "Italian":
+      return (
+        <>
+          <h3>Italian dessert</h3>
+          <p>
+            <i>
+              Italian desserts are made with traditional Italian ingredients.
+            </i>
+          </p>
+        </>
+      );
+    case "International":
+      return (
+        <>
+          <h3>International desserts</h3>
+          <p>
+            <i>International desserts from around the world.</i>
+          </p>
+        </>
+      );
   }
 };
 
-export default PizzatypeWithDiscription;
+export default ItemTypeWithDiscription;
