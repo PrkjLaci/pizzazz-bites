@@ -3,31 +3,37 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import NavFilter from "../../components/NavFilter/NavFilter";
 import ItemTable from "../../components/ItemTable/ItemTable";
 import Pagination from "../../components/Pegination/Pagination";
-import PizzatypeWithDiscription from "../../../utils/PizzatypeWithDiscription";
+import ItemTypeWithDiscription from "../../../utils/ItemTypeWithDiscription";
 import fetchMenuItems from "../../../utils/fetchMenuItems";
 import url from "../../../utils/url";
 import "./MenuItem.css";
 
-const MenuItem = ({menuType, itemTypes, clickedItemType, setClickedItemType, page, setPage }) => {
-    
-    const [items, setItems] = useState([]);
-    
-    const [itemCount, setItemCount] = useState(0);
+const MenuItem = ({
+  menuType,
+  itemTypes,
+  clickedItemType,
+  setClickedItemType,
+  page,
+  setPage,
+}) => {
+  const [items, setItems] = useState([]);
+  const [itemCount, setItemCount] = useState(0);
 
-    useEffect(() => {
-        fetchMenuItems(
-            url,
-            clickedItemType,
-            page,
-            menuType+"s",
-            menuType,
-            setItems,
-            setItemCount
-        );
-    }, [clickedItemType, page, menuType]);
+  useEffect(() => {
+    fetchMenuItems(
+      url,
+      clickedItemType,
+      page,
+      menuType + "s",
+      menuType,
+      setItems,
+      setItemCount
+    );
+  }, [clickedItemType, page, menuType]);
+  console.log(clickedItemType);
 
-    return (
-        <div className="item-container">
+  return (
+    <div className="item-container">
       <NavFilter
         setClickedItemType={setClickedItemType}
         setPage={setPage}
@@ -35,9 +41,9 @@ const MenuItem = ({menuType, itemTypes, clickedItemType, setClickedItemType, pag
         dropdownTitle={menuType + " Types"}
         inputPlaceholder={"Search for " + menuType + "s..."}
       />
-      {/* <h3 className="fw-bold">
-        {<PizzatypeWithDiscription pizzatype={clickedPizzaType} />}
-      </h3> */}
+      <h3 className="fw-bold">
+        {<ItemTypeWithDiscription clickedItemType={clickedItemType} />}
+      </h3>
       <ItemTable
         itemName={menuType}
         items={items}
@@ -46,7 +52,7 @@ const MenuItem = ({menuType, itemTypes, clickedItemType, setClickedItemType, pag
       />
       <Pagination page={page} setPage={setPage} itemCount={itemCount} />
     </div>
-    );
+  );
 };
 
 export default MenuItem;
