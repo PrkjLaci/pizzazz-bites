@@ -5,6 +5,7 @@ using PizzazzBitesBackend.Repository.Dessert;
 using PizzazzBitesBackend.Repository.Dessert.Seeder;
 using PizzazzBitesBackend.Repository.Pizza;
 using PizzazzBitesBackend.Repository.Pizza.Seeder;
+using PizzazzBitesBackend.Repository.ProductRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,9 +62,6 @@ void AddServices()
     builder.Services.AddSwaggerGen();
      
     
-    builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
-    builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
     
-    builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
-    builder.Services.AddScoped<IDessertRepository, DessertRepository>();
+    builder.Services.AddScoped<IProductRepository, ProductRepository>();
 }
