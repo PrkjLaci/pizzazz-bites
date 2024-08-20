@@ -9,9 +9,9 @@ import url from "../../../utils/url";
 import "./MenuItem.css";
 
 const MenuItem = ({
-  menuType,
-  itemTypes,
-  clickedItemType,
+  productType,
+  subTypes,
+  clickedSubType,
   setClickedItemType,
   page,
   setPage,
@@ -22,32 +22,31 @@ const MenuItem = ({
   useEffect(() => {
     fetchMenuItems(
       url,
-      clickedItemType,
+      clickedSubType,
       page,
-      menuType + "s",
-      menuType,
+      productType,
       setItems,
       setItemCount
     );
-  }, [clickedItemType, page, menuType]);
-  console.log(clickedItemType);
+  }, [clickedSubType, page, productType]);
+  console.log(clickedSubType);
 
   return (
     <div className="item-container">
       <NavFilter
         setClickedItemType={setClickedItemType}
         setPage={setPage}
-        itemTypes={itemTypes}
-        dropdownTitle={menuType + " Types"}
-        inputPlaceholder={"Search for " + menuType + "s..."}
+        itemTypes={subTypes}
+        dropdownTitle={productType + " Types"}
+        inputPlaceholder={"Search for " + productType + "s..."}
       />
       <h3 className="fw-bold">
-        {<ItemTypeWithDiscription clickedItemType={clickedItemType} />}
+        {<ItemTypeWithDiscription clickedItemType={clickedSubType} />}
       </h3>
       <ItemTable
-        itemName={menuType}
+        itemName={productType}
         items={items}
-        clickedItemType={clickedItemType}
+        clickedItemType={clickedSubType}
         page={page}
       />
       <Pagination page={page} setPage={setPage} itemCount={itemCount} />
