@@ -1,23 +1,23 @@
 const fetchMenuItems = async (
   url,
-  type = "",
+  clickedSubType = "",
   page,
-  itemTypes,
-  filterType,
+  productType,
   setItems,
   setItemCount
 ) => {
-  if (type === "Show All") type = "";
-  if (type === "Italian & International") type = "ItalianAndInternational";
-  if (type === "Pizza Al Carbone") type = "PizzaAlCarbone";
+  if (clickedSubType === "Show All") clickedSubType = "";
+  if (clickedSubType === "Italian & International") clickedSubType = "ItalianAndInternational";
+  if (clickedSubType === "Pizza Al Carbone") clickedSubType = "PizzaAlCarbone";
 
   const pageSize = 10;
+  console.log("fetchMenuItems", clickedSubType, page, productType);
 
   try {
     const endpoint =
-      type === ""
-        ? `${url}/${itemTypes}?page=${page}&pageSize=${pageSize}`
-        : `${url}/${itemTypes}/type/${type}?${filterType}TypeString=${type}&page=${page}&pageSize=${pageSize}`;
+      clickedSubType === ""
+        ? `${url}/api/Product/products-by-type?productType=${productType}&page=${page}&pageSize=${pageSize}`
+        : `${url}/api/Product/products-by-sub-type?productType=${productType}&subType=${clickedSubType}&page=${page}&pageSize=${pageSize}`;
     const response = await fetch(endpoint, {
       method: "GET",
       headers: {
@@ -30,11 +30,11 @@ const fetchMenuItems = async (
       setItems(data.data);
       setItemCount(data.count);
     } else {
-      console.error(`Failed to fetch ${filterType}`, response.statusText);
+      console.error(`Failed to fetch ${productType}`, response.statusText);
       setError("Failed to fetch pizzas.");
     }
   } catch (error) {
-    console.error(`Error fetching ${filterType}`, error);
+    console.error(`Error fetching ${productType}`, error);
   }
 };
 

@@ -74,7 +74,7 @@ const SiteHeader = ({ siteHeaderItems, setClickedItemType, setPage }) => {
                       setPage(1), setClickedItemType("");
                     }}
                   >
-                    {item.menuType}
+                    {item.productType}
                   </NavLink>
                 </Nav.Item>
               );

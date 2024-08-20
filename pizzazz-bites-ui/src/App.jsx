@@ -12,7 +12,7 @@ import siteHeaderItems from "../utils/siteHeaderItems.js";
 
 function App() {
   const [page, setPage] = useState(1);
-  const [clickedItemType, setClickedItemType] = useState("");
+  const [clickedSubType, setClickedSubType] = useState("");
 
   return (
     <Router>
@@ -21,7 +21,7 @@ function App() {
         <div className="sticky-top">
           <SiteHeader
             siteHeaderItems={siteHeaderItems}
-            setClickedItemType={setClickedItemType}
+            setClickedItemType={setClickedSubType}
             setPage={setPage}
           />
         </div>
@@ -36,10 +36,10 @@ function App() {
                 path={item.route}
                 element={
                   <MenuItem
-                    menuType={item.menuType}
-                    itemTypes={item.itemTypes}
-                    clickedItemType={clickedItemType}
-                    setClickedItemType={setClickedItemType}
+                    productType={item.productType}
+                    subTypes={item.subTypes}
+                    clickedSubType={clickedSubType}
+                    setClickedItemType={setClickedSubType}
                     page={page}
                     setPage={setPage}
                   />
