@@ -1,7 +1,7 @@
 const siteHeaderItems = [
   {
-    menuType: "Pizza",
-    itemTypes: [
+    productType: "Pizza",
+    subTypes: [
       "Italian & International",
       "Artisan",
       "Pizza Al Carbone",
@@ -10,28 +10,28 @@ const siteHeaderItems = [
     route: "/pizzas",
   },
   {
-    menuType: "Dessert",
-    itemTypes: ["Italian", "International", "Show All"],
+    productType: "Dessert",
+    subTypes: ["Italian", "International", "Show All"],
     route: "/desserts",
   },
   {
-    menuType: "Soft Drinks",
-    itemTypes: [],
+    productType: "Soft Drinks",
+    subTypes: [],
     route: "/soft-drinks",
   },
   {
-    menuType: "Beer",
-    itemTypes: [],
+    productType: "Beer",
+    subTypes: [],
     route: "/beer",
   },
   {
-    menuType: "Salad / Snacks",
-    itemTypes: [],
+    productType: "Salad / Snacks",
+    subTypes: [],
     route: "/salad-snacks",
   },
   {
-    menuType: "Dressing / Cheese",
-    itemTypes: [],
+    productType: "Dressing / Cheese",
+    subTypes: [],
     route: "/dressing-cheese",
   },
 ];
