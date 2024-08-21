@@ -2,13 +2,18 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Models.Enum;
 
 namespace PizzazzBitesBackend.Data;
 
 public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
 {
+    public DbSet<Product> Products { get; set; }
     public DbSet<Pizza> Pizzas { get; set; }
     public DbSet<Dessert> Desserts { get; set; }
+    public DbSet<Drink> Drinks { get; set; }
+    public DbSet<Salad> Salads { get; set; }
+    public DbSet<CharcuterieBoard> CharcuterieBoards { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -19,18 +24,31 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Product>().ToTable("Products");
+        
         modelBuilder.Entity<Pizza>()
-            .HasKey(p => p.Id);
+            .ToTable("Pizzas")
+            .Property(p => p.ProductId)
+            .ValueGeneratedOnAdd();
+        
+        modelBuilder.Entity<Dessert>()
+            .ToTable("Desserts")
+            .Property(d => d.ProductId)
+            .ValueGeneratedOnAdd();
 
-        modelBuilder.Entity<Pizza>()
-            .HasIndex(p => p.Name)
-            .IsUnique();
-        
-        modelBuilder.Entity<Dessert>()
-            .HasKey(d => d.Id);
-        
-        modelBuilder.Entity<Dessert>()
-            .HasIndex(d => d.Name)
-            .IsUnique();
+        modelBuilder.Entity<Drink>()
+            .ToTable("Drinks")
+            .Property(d => d.ProductId)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Salad>()
+            .ToTable("Salads")
+            .Property(s => s.ProductId)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<CharcuterieBoard>()
+            .ToTable("CharcuterieBoards")
+            .Property(cb => cb.ProductId)
+            .ValueGeneratedOnAdd();
     }
 }

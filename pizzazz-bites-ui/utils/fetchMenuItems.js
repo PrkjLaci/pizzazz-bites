@@ -9,6 +9,10 @@ const fetchMenuItems = async (
   if (clickedSubType === "Show All") clickedSubType = "";
   if (clickedSubType === "Italian & International") clickedSubType = "ItalianAndInternational";
   if (clickedSubType === "Pizza Al Carbone") clickedSubType = "PizzaAlCarbone";
+  if (clickedSubType === "Soft Drinks") clickedSubType = "SoftDrink";
+  if (clickedSubType === "Short Drinks") clickedSubType = "ShortDrink";
+  if (productType === "Charcuterie Board") productType = "CharcuterieBoard"
+
 
   const pageSize = 10;
   console.log("fetchMenuItems", clickedSubType, page, productType);

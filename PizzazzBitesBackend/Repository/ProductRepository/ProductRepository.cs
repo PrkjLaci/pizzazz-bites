@@ -26,6 +26,9 @@ public class ProductRepository : IProductRepository
             {
                 "Pizza" => await _context.Products.OfType<Models.Pizza>().CountAsync(),
                 "Dessert" => await _context.Products.OfType<Models.Dessert>().CountAsync(),
+                "Drink" => await _context.Products.OfType<Models.Drink>().CountAsync(),
+                "Salad" => await _context.Products.OfType<Models.Salad>().CountAsync(),
+                "CharcuterieBoard" => await _context.Products.OfType<CharcuterieBoard>().CountAsync(),
                 _ => throw new Exception("Invalid product productType.")
             };
 
@@ -45,6 +48,9 @@ public class ProductRepository : IProductRepository
             {
                 "Pizza" => _context.Products.OfType<Models.Pizza>(),
                 "Dessert" => _context.Products.OfType<Models.Dessert>(),
+                "Drink" => _context.Products.OfType<Models.Drink>(),
+                "Salad" => _context.Products.OfType<Models.Salad>(),
+                "CharcuterieBoard" => _context.Products.OfType<CharcuterieBoard>(),
                 _ => throw new Exception("Invalid productType.")
             };
 
@@ -70,6 +76,16 @@ public class ProductRepository : IProductRepository
                     ? _context.Products.OfType<Models.Dessert>().Where(d => d.DessertType == dessertSubTypeEnum)
                         .CountAsync()
                     : throw new Exception("Invalid dessert subType."),
+                "Drink" => Enum.TryParse<DrinkType>(subType, out var drinkSubTypeEnum)
+                    ? _context.Products.OfType<Models.Drink>().Where(d => d.DrinkType == drinkSubTypeEnum).CountAsync()
+                    : throw new Exception("Invalid drink subType."),
+                "Salad" => Enum.TryParse<SaladType>(subType, out var saladSubTypeEnum)
+                    ? _context.Products.OfType<Models.Salad>().Where(s => s.SaladType == saladSubTypeEnum).CountAsync()
+                    : throw new Exception("Invalid salad subType."),
+                "CharcuterieBoard" => Enum.TryParse<CharcuterieBoardType>(subType, out var charcuterieBoardSubTypeEnum)
+                    ? _context.Products.OfType<CharcuterieBoard>().Where(cb => cb.CharcuterieBoardType == charcuterieBoardSubTypeEnum)
+                        .CountAsync()
+                    : throw new Exception("Invalid charcuterieBoard subType."),
                 _ => throw new Exception("Invalid productType.")
             };
 
@@ -94,6 +110,15 @@ public class ProductRepository : IProductRepository
                 "Dessert" => Enum.TryParse<DessertType>(subType, out var dessertSubTypeEnum)
                     ? _context.Products.OfType<Models.Dessert>().Where(d => d.DessertType == dessertSubTypeEnum)
                     : throw new Exception("Invalid dessert subType."),
+                "Drink" => Enum.TryParse<DrinkType>(subType, out var drinkSubTypeEnum)
+                    ? _context.Products.OfType<Models.Drink>().Where(d => d.DrinkType == drinkSubTypeEnum)
+                    : throw new Exception("Invalid drink subType."),
+                "Salad" => Enum.TryParse<SaladType>(subType, out var saladSubTypeEnum)
+                    ? _context.Products.OfType<Models.Salad>().Where(s => s.SaladType == saladSubTypeEnum)
+                    : throw new Exception("Invalid salad subType."),
+                "CharcuterieBoard" => Enum.TryParse<CharcuterieBoardType>(subType, out var charcuterieBoardSubTypeEnum)
+                    ? _context.Products.OfType<CharcuterieBoard>().Where(cb => cb.CharcuterieBoardType == charcuterieBoardSubTypeEnum)
+                    : throw new Exception("Invalid charcuterieBoard subType."),
                 _ => throw new Exception("Invalid productType.")
             };
             

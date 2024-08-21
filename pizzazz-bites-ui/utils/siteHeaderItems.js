@@ -15,24 +15,19 @@ const siteHeaderItems = [
     route: "/desserts",
   },
   {
-    productType: "Soft Drinks",
-    subTypes: [],
-    route: "/soft-drinks",
+    productType: "Drink",
+    subTypes: ["Soft Drinks", "Beer", "Wine", "Short Drinks", "Show All"],
+    route: "/drinks",
   },
   {
-    productType: "Beer",
-    subTypes: [],
-    route: "/beer",
+    productType: "Salad",
+    subTypes: ["Italian", "Mediterranean", "Show All"],
+    route: "/salad",
   },
   {
-    productType: "Salad / Snacks",
-    subTypes: [],
-    route: "/salad-snacks",
-  },
-  {
-    productType: "Dressing / Cheese",
-    subTypes: [],
-    route: "/dressing-cheese",
+    productType: "Charcuterie Board",
+    subTypes: ["Italian", "Mediterranean", "Show All"],
+    route: "/charcuterie-board",
   },
 ];
 
