@@ -4,6 +4,7 @@ using PizzazzBitesBackend.Repository.Dessert.Seeder;
 using PizzazzBitesBackend.Repository.Drink.Seeder;
 using PizzazzBitesBackend.Repository.Pizza.Seeder;
 using PizzazzBitesBackend.Repository.ProductRepository;
+using PizzazzBitesBackend.Repository.Salad.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ await dessertSeeder.SeedDesserts();
 
 var drinkSeeder = scope.ServiceProvider.GetRequiredService<IDrinkSeeder>();
 await drinkSeeder.SeedDrink();
+
+var saladSeeder = scope.ServiceProvider.GetRequiredService<ISaladSeeder>();
+await saladSeeder.SeedSalad();
 
 var connection = "http://localhost:5089/";
 app.UseCors(b =>
@@ -65,6 +69,7 @@ void AddServices()
     builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
     builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
     builder.Services.AddScoped<IDrinkSeeder, DrinkSeeder>();
+    builder.Services.AddScoped<ISaladSeeder, SaladSeeder>();
     
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
 }
