@@ -8,6 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import "./ItemTable.css";
 
+
 const ItemTable = ({ itemName, items, clickedItemType, page }) => {
   return (
     <MDBTable align="middle">
@@ -28,7 +29,6 @@ const ItemTable = ({ itemName, items, clickedItemType, page }) => {
               <img
                 src={item.imageUrl}
                 alt=""
-                style={{ width: "12rem", height: "12rem" }}
                 className="item-image"
               />
             </td>
@@ -39,6 +39,12 @@ const ItemTable = ({ itemName, items, clickedItemType, page }) => {
               </h4>
               <p className="mb-1">
                 <i>{item.description ? item.description : item.ingredients}</i>
+              </p>
+              <p className="mb-1">
+                <i>{item.isAlcoholic ? `Alcohol percentage: ${item.alcoholPercentage}%` : ""}</i>
+              </p>
+              <p className="mb-1">
+                <i>{item.volume}</i>
               </p>
             </td>
             <td className="table-pricing">
