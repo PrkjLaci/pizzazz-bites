@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PizzazzBitesBackend.Data;
+using PizzazzBitesBackend.Repository.CheesePlate.Seeder;
 using PizzazzBitesBackend.Repository.Dessert.Seeder;
 using PizzazzBitesBackend.Repository.Drink.Seeder;
 using PizzazzBitesBackend.Repository.Pizza.Seeder;
@@ -28,6 +29,9 @@ await drinkSeeder.SeedDrink();
 
 var saladSeeder = scope.ServiceProvider.GetRequiredService<ISaladSeeder>();
 await saladSeeder.SeedSalad();
+
+var charcuterieBoardSeeder = scope.ServiceProvider.GetRequiredService<ICharcuterieBoardSeeder>();
+await charcuterieBoardSeeder.SeedCharcuterieBoards();
 
 var connection = "http://localhost:5089/";
 app.UseCors(b =>
@@ -70,6 +74,7 @@ void AddServices()
     builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
     builder.Services.AddScoped<IDrinkSeeder, DrinkSeeder>();
     builder.Services.AddScoped<ISaladSeeder, SaladSeeder>();
+    builder.Services.AddScoped<ICharcuterieBoardSeeder, CharcuterieBoardSeeder>();
     
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
 }
