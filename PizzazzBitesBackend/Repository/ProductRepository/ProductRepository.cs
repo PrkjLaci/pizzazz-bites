@@ -26,6 +26,7 @@ public class ProductRepository : IProductRepository
             {
                 "Pizza" => await _context.Products.OfType<Models.Pizza>().CountAsync(),
                 "Dessert" => await _context.Products.OfType<Models.Dessert>().CountAsync(),
+                "Drink" => await _context.Products.OfType<Models.Drink>().CountAsync(),
                 _ => throw new Exception("Invalid product productType.")
             };
 
@@ -45,6 +46,7 @@ public class ProductRepository : IProductRepository
             {
                 "Pizza" => _context.Products.OfType<Models.Pizza>(),
                 "Dessert" => _context.Products.OfType<Models.Dessert>(),
+                "Drink" => _context.Products.OfType<Models.Drink>(),
                 _ => throw new Exception("Invalid productType.")
             };
 
@@ -70,6 +72,9 @@ public class ProductRepository : IProductRepository
                     ? _context.Products.OfType<Models.Dessert>().Where(d => d.DessertType == dessertSubTypeEnum)
                         .CountAsync()
                     : throw new Exception("Invalid dessert subType."),
+                "Drink" => Enum.TryParse<DrinkType>(subType, out var drinkSubTypeEnum)
+                    ? _context.Products.OfType<Models.Drink>().Where(d => d.DrinkType == drinkSubTypeEnum).CountAsync()
+                    : throw new Exception("Invalid drink subType."),
                 _ => throw new Exception("Invalid productType.")
             };
 
@@ -94,6 +99,9 @@ public class ProductRepository : IProductRepository
                 "Dessert" => Enum.TryParse<DessertType>(subType, out var dessertSubTypeEnum)
                     ? _context.Products.OfType<Models.Dessert>().Where(d => d.DessertType == dessertSubTypeEnum)
                     : throw new Exception("Invalid dessert subType."),
+                "Drink" => Enum.TryParse<DrinkType>(subType, out var drinkSubTypeEnum)
+                    ? _context.Products.OfType<Models.Drink>().Where(d => d.DrinkType == drinkSubTypeEnum)
+                    : throw new Exception("Invalid drink subType."),
                 _ => throw new Exception("Invalid productType.")
             };
             
