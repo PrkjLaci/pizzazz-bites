@@ -25,9 +25,9 @@ const siteHeaderItems = [
     route: "/salad",
   },
   {
-    productType: "Cheese Plate",
-    subTypes: [],
-    route: "/cheese-plate",
+    productType: "Charcuterie Board",
+    subTypes: ["Italian", "Mediterranean", "Show All"],
+    route: "/charcuterie-board",
   },
 ];
 
