@@ -29,7 +29,6 @@ const MenuItem = ({
       setItemCount
     );
   }, [clickedSubType, page, productType]);
-  console.log(clickedSubType);
 
   return (
     <div className="item-container">
