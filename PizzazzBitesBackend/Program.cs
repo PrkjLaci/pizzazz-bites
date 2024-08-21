@@ -61,5 +61,8 @@ void AddServices()
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     
+    builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
+    builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
+    
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
 }
