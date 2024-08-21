@@ -15,14 +15,9 @@ const siteHeaderItems = [
     route: "/desserts",
   },
   {
-    productType: "Soft Drinks",
-    subTypes: [],
-    route: "/soft-drinks",
-  },
-  {
-    productType: "Beer",
-    subTypes: [],
-    route: "/beer",
+    productType: "Drink",
+    subTypes: ["Soft Drinks", "Beer", "Wine", "Short Drinks", "Show All"],
+    route: "/drinks",
   },
   {
     productType: "Salad / Snacks",
