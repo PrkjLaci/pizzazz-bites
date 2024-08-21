@@ -38,7 +38,10 @@ const ItemTable = ({ itemName, items, clickedItemType, page }) => {
                 {item.name}
               </h4>
               <p className="mb-1">
-                <i>{item.description ? item.description : item.ingredients}</i>
+                <i>{item.ingredients ? `Ingredients: ${item.ingredients}` : ""}</i>
+              </p>
+              <p className="mb-1">
+                <i>{item.description}</i>
               </p>
               <p className="mb-1">
                 <i>{item.isAlcoholic ? `Alcohol percentage: ${item.alcoholPercentage}%` : ""}</i>
