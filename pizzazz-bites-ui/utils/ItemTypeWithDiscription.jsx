@@ -36,26 +36,6 @@ const ItemTypeWithDiscription = ({ clickedItemType }) => {
           </p>
         </>
       );
-    case "Italian":
-      return (
-        <>
-          <h3>Italian dessert</h3>
-          <p>
-            <i>
-              Italian desserts are made with traditional Italian ingredients.
-            </i>
-          </p>
-        </>
-      );
-    case "International":
-      return (
-        <>
-          <h3>International desserts</h3>
-          <p>
-            <i>International desserts from around the world.</i>
-          </p>
-        </>
-      );
   }
 };
 
