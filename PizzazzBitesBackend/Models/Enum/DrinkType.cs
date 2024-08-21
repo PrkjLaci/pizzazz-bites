@@ -2,8 +2,9 @@
 
 public enum DrinkType
 {
-    SoftDrink,
-    Beer,
-    Vine,
-    ShortDrink,
+    SoftDrink = 0,
+    Water = 1,
+    Beer = 2,
+    Wine = 3,
+    ShortDrink = 4,
 }
