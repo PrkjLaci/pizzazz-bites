@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
 using PizzazzBitesBackend.Data;
-using PizzazzBitesBackend.Repository.Dessert;
 using PizzazzBitesBackend.Repository.Dessert.Seeder;
-using PizzazzBitesBackend.Repository.Pizza;
+using PizzazzBitesBackend.Repository.Drink.Seeder;
 using PizzazzBitesBackend.Repository.Pizza.Seeder;
 using PizzazzBitesBackend.Repository.ProductRepository;
 
@@ -23,6 +21,9 @@ await pizzaSeeder.SeedPizza();
 
 var dessertSeeder = scope.ServiceProvider.GetRequiredService<IDessertSeeder>();
 await dessertSeeder.SeedDesserts();
+
+var drinkSeeder = scope.ServiceProvider.GetRequiredService<IDrinkSeeder>();
+await drinkSeeder.SeedDrink();
 
 var connection = "http://localhost:5089/";
 app.UseCors(b =>
@@ -63,6 +64,7 @@ void AddServices()
     
     builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
     builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
+    builder.Services.AddScoped<IDrinkSeeder, DrinkSeeder>();
     
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
 }
