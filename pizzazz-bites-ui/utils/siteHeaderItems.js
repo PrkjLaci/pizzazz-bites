@@ -20,14 +20,14 @@ const siteHeaderItems = [
     route: "/drinks",
   },
   {
-    productType: "Salad / Snacks",
-    subTypes: [],
-    route: "/salad-snacks",
+    productType: "Salad",
+    subTypes: ["Italian", "Mediterranean", "Show All"],
+    route: "/salad",
   },
   {
-    productType: "Dressing / Cheese",
+    productType: "Cheese Plate",
     subTypes: [],
-    route: "/dressing-cheese",
+    route: "/cheese-plate",
   },
 ];
 
