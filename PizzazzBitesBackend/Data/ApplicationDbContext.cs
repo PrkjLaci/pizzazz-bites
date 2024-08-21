@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Models.Enum;
 
 namespace PizzazzBitesBackend.Data;
 
@@ -12,6 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
     public DbSet<Dessert> Desserts { get; set; }
     public DbSet<Drink> Drinks { get; set; }
     public DbSet<Salad> Salads { get; set; }
+    public DbSet<CharcuterieBoard> CharcuterieBoards { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -42,6 +44,11 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
         modelBuilder.Entity<Salad>()
             .ToTable("Salads")
             .Property(s => s.ProductId)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<CharcuterieBoard>()
+            .ToTable("CharcuterieBoards")
+            .Property(cb => cb.ProductId)
             .ValueGeneratedOnAdd();
     }
 }
