@@ -34,7 +34,7 @@ const ItemTable = ({ itemName, items, clickedItemType, page }) => {
             </td>
             <td className="table-description">
               <h4 className="fw-bold mb-0">
-                {item.id <= 9 ? `0${item.id}. ` : `${item.id}. `}
+                {item.productId <= 9 ? `0${item.productId}. ` : `${item.productId}. `}
                 {item.name}
               </h4>
               <p className="mb-1">
