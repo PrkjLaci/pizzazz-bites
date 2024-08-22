@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./TopNavbar.css";
 import { Button } from "react-bootstrap";
 import LoginModal from "../loginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 
 const TopNavbar = () => {
   const [showSignInModal, setShowSignInModal] = useState(false);
@@ -35,7 +36,7 @@ const TopNavbar = () => {
           </Nav.Item>
           <div className="vertical-divider"></div>
           <Nav.Item>
-            <Button variant="link" className="nav-link" onClick={() => setShowCreateAccountModal(true)}>Create an account</Button>
+            <RegisterModal show={showCreateAccountModal} onHide={() => setShowCreateAccountModal(false)} />
           </Nav.Item>
         </Nav>
       </Container>
