@@ -10,4 +10,6 @@ public interface IProductRepository
 
     Task<IEnumerable<object>>
         GetProductsBySubType(string productType, string subType, int page = 1, int pageSize = 10);
+
+    Task<IEnumerable<object>> GetNewProducts();
 }
