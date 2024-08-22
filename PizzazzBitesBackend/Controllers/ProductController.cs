@@ -61,5 +61,24 @@ public class ProductController : ControllerBase
             return NotFound(new { message = "Can't find products by productType or subType." });
         }
     }
+    
+    [HttpGet("new-products")]
+    public async Task<ActionResult<IEnumerable<Product>>> GetNewProducts()
+    {
+        try
+        {
+            var products = await _productRepository.GetNewProducts();
+            return Ok(new
+            {
+                message = "New products found successfully.",
+                data = products
+            });
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Can't find new products.");
+            return NotFound(new { message = "Can't find new products." });
+        }
+    }
 
 }
