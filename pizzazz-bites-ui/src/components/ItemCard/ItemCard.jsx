@@ -15,7 +15,7 @@ import "./ItemCard.css";
 
 const ItemCard = ({ item, index }) => {
   return (
-    <MDBCard style={{ maxWidth: "540px" }}>
+    <MDBCard style={{ maxWidth: "540px" }} className="new-arrival-card">
       <MDBRow className="g-0">
         <MDBCol md="4" className="card-col">
           <MDBCardImage src={item.imageUrl} alt={index} className="img-custom"/>

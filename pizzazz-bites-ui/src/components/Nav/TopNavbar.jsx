@@ -7,12 +7,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./TopNavbar.css";
 import { Button } from "react-bootstrap";
+import LoginModal from "../loginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 
 const TopNavbar = () => {
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
 
   return (
+    <>
     <Navbar bg="black" variant="dark">
       <Container>
         <Nav className="mx-auto d-flex justify-content-center w-100 gap-5" activeKey="/home">
@@ -29,15 +32,17 @@ const TopNavbar = () => {
             <NavLink to="contacts" className="nav-link">Contacts</NavLink>
           </Nav.Item>
           <Nav.Item>
-            <Button variant="link" className="nav-link" onClick={() => setShowSignInModal(true)}>Sign In</Button>
+          <LoginModal show={showSignInModal} onHide={() => setShowSignInModal(false)} />
           </Nav.Item>
           <div className="vertical-divider"></div>
           <Nav.Item>
-            <Button variant="link" className="nav-link" onClick={() => setShowCreateAccountModal(true)}>Create an account</Button>
+            <RegisterModal show={showCreateAccountModal} onHide={() => setShowCreateAccountModal(false)} />
           </Nav.Item>
         </Nav>
       </Container>
     </Navbar>
+     
+    </>
   );
 };
 

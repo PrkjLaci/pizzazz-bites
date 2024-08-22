@@ -1,0 +1,8 @@
+.login-modal-content {
+  height: 33rem !important;
+  color: black !important;
+}
+
+.form-control, .form-label {
+    color: black !important;
+}
