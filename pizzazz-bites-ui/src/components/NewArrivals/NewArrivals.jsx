@@ -4,30 +4,18 @@ import url from "../../../utils/url.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./NewArrivals.css";
 import ItemCard from "../ItemCard/ItemCard";
+import fetchNewItems from "../../../utils/fetchNewItems";
 
 const NewArrivals = () => {
-  const [newPizzas, setNewPizzas] = useState([]);
+  const [newItems, setNewItems] = useState([]);
 
-  const fetchNewPizzas = async () => {
-    const response = await fetch(`${url}/pizzas/new`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setNewPizzas(data);
-    } else {
-      console.error("Error fetching new pizzas");
-    }
-  };
-
+  
   useEffect(() => {
-    fetchNewPizzas();
+    fetchNewItems(url, setNewItems);
   }, []);
 
-  console.log(newPizzas);
+  console.log("newItems", newItems);
+  
 
   return (
     <div className="new-arrivals-container">
@@ -35,10 +23,10 @@ const NewArrivals = () => {
         <h2>New Arrivals</h2>
       </div>
       <div className="new-arrivals-items">
-        {newPizzas.map((pizza) => {
+        {newItems.map((item) => {
           return (
-            <div className="new-arrivals-item" key={pizza.id}>
-              <ItemCard item={pizza} />
+            <div className="new-arrivals-item" key={item.id}>
+              <ItemCard item={item} />
             </div>
           );
         })}
