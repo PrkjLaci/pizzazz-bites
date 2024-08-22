@@ -15,7 +15,7 @@ import {
 } from "mdb-react-ui-kit";
 import "./LoginModal.css";
 
-export default function App() {
+const LoginModal = () => {
   const [basicModal, setBasicModal] = useState(false);
 
   const toggleOpen = () => setBasicModal(!basicModal);
@@ -92,3 +92,5 @@ export default function App() {
     </>
   );
 }
+
+export default LoginModal;
