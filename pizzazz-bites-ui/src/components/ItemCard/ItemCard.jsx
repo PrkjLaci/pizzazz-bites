@@ -28,7 +28,8 @@ const ItemCard = ({ item, index }) => {
               {item.isSpicy && <GiChiliPepper className="isSpicy-icon" />}
             </MDBCardTitle>
             <MDBCardText>
-              <i>{item.ingredients ? item.ingredients : item.decription}</i>
+              <i>{item.ingredients}</i>
+              <i>{item.description}</i>
             </MDBCardText>
             <MDBCardText>{item.price}.-</MDBCardText>
             <Button variant="primary">Add to cart</Button>
