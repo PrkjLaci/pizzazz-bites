@@ -26,8 +26,8 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 
 await AddSeeders(scope);
+AddAuthSeeder(scope);
 AddCors();
-AddRoles(scope);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -35,7 +35,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseHttpsRedirection();
 
@@ -55,9 +54,9 @@ app.Run();
 
 void AddServices()
 {
+    builder.Services.AddScoped<AuthenticationSeeder>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
-    builder.Services.AddScoped<AuthenticationSeeder>();
     
     builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
     builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
@@ -170,8 +169,9 @@ void AddCors()
     });
 }
 
-void AddRoles(IServiceScope scope)
+void AddAuthSeeder(IServiceScope scope)
 {
     var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthenticationSeeder>();
     authenticationSeeder.AddRoles();
+    authenticationSeeder.AddAdmin();
 }
