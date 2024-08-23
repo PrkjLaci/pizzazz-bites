@@ -130,4 +130,17 @@ public class ProductRepository : IProductRepository
             throw new Exception("Cannot get products by subType.");
         }
     }
+
+    public async Task<IEnumerable<object>> GetNewProducts()
+    {
+        try
+        {
+            return await _context.Products.Where(p => p.IsNew).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot get new products.");
+            throw new Exception("Cannot get new products.");
+        }
+    }
 }

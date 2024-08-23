@@ -14,6 +14,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
     public DbSet<Drink> Drinks { get; set; }
     public DbSet<Salad> Salads { get; set; }
     public DbSet<CharcuterieBoard> CharcuterieBoards { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
