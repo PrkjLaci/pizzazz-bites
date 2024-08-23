@@ -82,3 +82,5 @@ $RECYCLE.BIN/
 # JetBrains Rider
 .idea/
 *.sln.iml
+PizzazzBitesBackend/Migrations/ApplicationDbContextModelSnapshot.cs
+pizzazz-bites.sln
