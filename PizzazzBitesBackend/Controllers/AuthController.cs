@@ -19,21 +19,21 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
     {
-        if(!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        var result = await _authService.RegisterAsync(request);
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var result = await _authService.RegisterAsync(request.Email, request.FirstName, request.LastName, request.Password);
         
-        if (!result.Success)
-        {
-            GetAddErrors(result);
-            return BadRequest(result);
-        }
+            if (!result.Success)
+            {
+                GetAddErrors(result);
+                return BadRequest(result);
+            }
 
-        return CreatedAtAction(nameof(Register),
-            new RegistrationResponse(result.FirstName, result.LastName, result.Email);
+            return CreatedAtAction(nameof(Register),
+                new RegistrationResponse(result.FirstName, result.LastName, result.Email));
     }
     
     private void GetAddErrors(AuthResult result)
