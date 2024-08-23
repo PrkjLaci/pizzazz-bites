@@ -27,6 +27,7 @@ using var scope = app.Services.CreateScope();
 
 await AddSeeders(scope);
 AddCors();
+AddRoles(scope);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -56,6 +57,7 @@ void AddServices()
 {
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
+    builder.Services.AddScoped<AuthenticationSeeder>();
     
     builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
     builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
@@ -166,4 +168,10 @@ void AddCors()
             .WithExposedHeaders("content-type")
             .SetIsOriginAllowed(_ => true);
     });
+}
+
+void AddRoles(IServiceScope scope)
+{
+    var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthenticationSeeder>();
+    authenticationSeeder.AddRoles();
 }
