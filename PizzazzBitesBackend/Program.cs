@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -125,13 +126,14 @@ void AddAuthentication()
 void AddIdentity()
 {
     builder.Services.AddIdentityCore<User>(options =>
-    {
-        options.Password.RequireDigit = false;
-        options.Password.RequireLowercase = false;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = false;
-        options.Password.RequiredLength = 6;
-    }).AddEntityFrameworkStores<ApplicationDbContext>();
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 6;
+        }).AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>();
 }
 
 async Task AddSeeders(IServiceScope scope)
