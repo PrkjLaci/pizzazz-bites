@@ -101,6 +101,7 @@ void AddServices()
     }).AddEntityFrameworkStores<ApplicationDbContext>();
     
     builder.Services.AddScoped<IAuthService, AuthService>();
+    builder.Services.AddScoped<ITokenService, TokenService>();
     
     builder.Services.AddScoped<IPizzaSeeder, PizzaSeeder>();
     builder.Services.AddScoped<IDessertSeeder, DessertSeeder>();
