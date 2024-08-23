@@ -5,4 +5,5 @@ namespace PizzazzBitesBackend.Services.Authentication;
 public interface IAuthService
 {
     Task<AuthResult> RegisterAsync(string email, string firstName, string lastName, string password);
+    Task<AuthResult> LoginAsync(string email, string password);
 }
