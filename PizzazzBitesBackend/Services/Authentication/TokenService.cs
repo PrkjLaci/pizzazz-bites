@@ -12,10 +12,10 @@ public class TokenService : ITokenService
 {
     private const int ExpirationInMinutes = 30;
     
-    public string CreateToken(User user)
+    public string CreateToken(User user, string role)
     {
         var expiration = DateTime.UtcNow.AddMinutes(ExpirationInMinutes);
-        var token = CreateJwtToken(CreateClaims(user),
+        var token = CreateJwtToken(CreateClaims(user, role),
             CreateSigningCredentials(),
             expiration);
         
@@ -25,7 +25,7 @@ public class TokenService : ITokenService
     private JwtSecurityToken CreateJwtToken(List<Claim> claims, SigningCredentials credentials, DateTime expiration) =>
         new("apiWithAuthBackend", "apiWithAuthBackend", claims, expires: expiration, signingCredentials: credentials);
     
-    private List<Claim> CreateClaims(User user)
+    private List<Claim> CreateClaims(User user, string? role)
     {
         try
         {
@@ -40,6 +40,12 @@ public class TokenService : ITokenService
                 new(ClaimTypes.Name, user.LastName + " " + user.FirstName),
                 new(ClaimTypes.Email, user.Email)
             };
+            
+            if (role != null)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+            
             return claims;
         }
         catch (Exception e)
