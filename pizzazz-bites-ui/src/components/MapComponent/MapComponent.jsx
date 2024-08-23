@@ -35,10 +35,18 @@ const MapComponent = () => {
               <div className="col-md-9">
                 <MDBRow className="mb-4">
                   <MDBCol>
-                    <MDBInput label="First name" id="form3FirstName" />
+                    <MDBInput
+                      label="First name"
+                      id="form3FirstName"
+                      labelClass="map-form-label"
+                    />
                   </MDBCol>
                   <MDBCol>
-                    <MDBInput label="Email Address" id="form3Email" />
+                    <MDBInput
+                      label="Email Address"
+                      id="form3Email"
+                      labelClass="map-form-label"
+                    />
                   </MDBCol>
                 </MDBRow>
                 <MDBInput
@@ -47,11 +55,13 @@ const MapComponent = () => {
                   id="form3Subject"
                   v-model="form3Subject"
                   wrapperClass="mb-4"
+                  labelClass="map-form-label"
                 />
                 <MDBTextArea
                   label="Message"
                   id="form3Textarea"
                   wrapperClass="mb-4"
+                  labelClass="map-form-label"
                 />
                 <MDBBtn color="primary" className="mb-4">
                   {" "}
@@ -63,7 +73,9 @@ const MapComponent = () => {
                   <li>
                     <i className="fas fa-map-marker-alt fa-2x text-primary"></i>
                     <p>
-                      <small>Localita Ottone, 3, 57037 Portoferraio LI, Italy</small>
+                      <small>
+                        Localita Ottone, 3, 57037 Portoferraio LI, Italy
+                      </small>
                     </p>
                   </li>
                   <li>
