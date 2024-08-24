@@ -15,19 +15,16 @@ import {
 } from "mdb-react-ui-kit";
 import "./LoginModal.css";
 
-const LoginModal = () => {
-  const [basicModal, setBasicModal] = useState(false);
-
-  const toggleOpen = () => setBasicModal(!basicModal);
+const LoginModal = ({showSignInModal, setShowSignInModal, toggleSignInModal}) => {
 
   return (
     <>
-      <MDBBtn onClick={toggleOpen} className="nav-link">
+      <MDBBtn onClick={toggleSignInModal} className="nav-link">
         Sign in
       </MDBBtn>
       <MDBModal
-        open={basicModal}
-        onClose={() => setBasicModal(false)}
+        open={showSignInModal}
+        onClose={() => setShowSignInModal(false)}
         tabIndex="-1"
       >
         <MDBModalDialog>
