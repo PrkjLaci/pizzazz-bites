@@ -15,14 +15,48 @@ import {
 } from "mdb-react-ui-kit";
 import "./RegisterModal.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import url from "../../../utils/url";
 
-const LoginModal = () => {
+const LoginModal = ({toggleSignInModal}) => {
   const [basicModal, setBasicModal] = useState(false);
+  const [newUser, setNewUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   const toggleOpen = () => setBasicModal(!basicModal);
 
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${url}/api/Auth/Register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (response.ok) {
+        setNewUser({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        });
+        toggleOpen();
+        toggleSignInModal();
+      }
+    } catch (error) {
+      console.error("Error registering new user", error);
+    }
+  };
+
   return (
-    <>
+    <form onSubmit={(e) => handleRegisterSubmit(e)}>
       <MDBBtn onClick={toggleOpen} className="nav-link">
         Sign up
       </MDBBtn>
@@ -59,8 +93,15 @@ const LoginModal = () => {
                       <MDBInput
                         wrapperClass="mb-4"
                         label="First name"
-                        id="form1"
+                        id="register-form-first-name"
                         type="text"
+                        required
+                        onChange={(e) =>
+                          setNewUser({
+                            ...newUser,
+                            firstName: e.target.value,
+                          })
+                        }
                       />
                     </MDBCol>
 
@@ -68,8 +109,12 @@ const LoginModal = () => {
                       <MDBInput
                         wrapperClass="mb-4"
                         label="Last name"
-                        id="form1"
+                        id="register-form-last-name"
                         type="text"
+                        required
+                        onChange={(e) =>
+                          setNewUser({ ...newUser, lastName: e.target.value })
+                        }
                       />
                     </MDBCol>
                   </MDBRow>
@@ -77,21 +122,29 @@ const LoginModal = () => {
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Email"
-                    id="form1"
+                    id="register-form-email"
                     type="email"
+                    required
+                    onChange={(e) =>
+                      setNewUser({ ...newUser, email: e.target.value })
+                    }
                   />
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Password"
-                    id="form1"
+                    id="register-form-password"
                     type="password"
+                    required
+                    onChange={(e) =>
+                      setNewUser({ ...newUser, password: e.target.value })
+                    }
                   />
 
                   <div className="d-flex justify-content-center mb-4">
                     <MDBCheckbox
                       name="flexCheck"
                       value=""
-                      id="flexCheckDefault"
+                      id="register-form-newsletter"
                       label="Subscribe to our newsletter"
                     />
                   </div>
@@ -120,7 +173,6 @@ const LoginModal = () => {
                     >
                       <MDBIcon fab icon="google" size="sm" />
                     </MDBBtn>
-
                   </div>
                 </MDBCardBody>
               </MDBCard>
@@ -128,7 +180,7 @@ const LoginModal = () => {
           </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
-    </>
+    </form>
   );
 };
 

@@ -14,20 +14,47 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 import "./LoginModal.css";
+import url from "../../../utils/url";
 
-const LoginModal = () => {
-  const [basicModal, setBasicModal] = useState(false);
+const LoginModal = ({
+  showSignInModal,
+  setShowSignInModal,
+  toggleSignInModal,
+}) => {
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
 
-  const toggleOpen = () => setBasicModal(!basicModal);
+    try {
+      const response = await fetch(`${url}/api/Auth/Login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...loginData }),
+      });
+
+      if (response.ok) {
+        setLoginData({
+          email: "",
+          password: "",
+        });
+        setShowSignInModal(false);
+      }
+    } catch (error) {}
+  };
 
   return (
-    <>
-      <MDBBtn onClick={toggleOpen} className="nav-link">
+    <form onSubmit={(e) => handleLoginSubmit(e)}>
+      <MDBBtn onClick={toggleSignInModal} className="nav-link">
         Sign in
       </MDBBtn>
       <MDBModal
-        open={basicModal}
-        onClose={() => setBasicModal(false)}
+        open={showSignInModal}
+        onClose={() => setShowSignInModal(false)}
         tabIndex="-1"
       >
         <MDBModalDialog>
@@ -43,21 +70,27 @@ const LoginModal = () => {
                   <MDBInput
                     wrapperClass="mb-4 w-100"
                     label="Email address"
-                    id="formControlLg"
+                    id="login-form-email"
                     type="email"
                     size="lg"
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, email: e.target.value })
+                    }
                   />
                   <MDBInput
                     wrapperClass="mb-4 w-100"
                     label="Password"
-                    id="formControlLg"
+                    id="login-form-password"
                     type="password"
                     size="lg"
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, password: e.target.value })
+                    }
                   />
 
                   <MDBCheckbox
                     name="flexCheck"
-                    id="flexCheckDefault"
+                    id="login-form-remember"
                     className="mb-4"
                     label="Remember password"
                   />
@@ -89,8 +122,8 @@ const LoginModal = () => {
           </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
-    </>
+    </form>
   );
-}
+};
 
 export default LoginModal;

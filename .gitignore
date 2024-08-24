@@ -84,3 +84,4 @@ $RECYCLE.BIN/
 *.sln.iml
 PizzazzBitesBackend/Migrations/ApplicationDbContextModelSnapshot.cs
 pizzazz-bites.sln
+Migrations/
