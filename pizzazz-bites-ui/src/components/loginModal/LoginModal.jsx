@@ -40,21 +40,21 @@ const LoginModal = ({showSignInModal, setShowSignInModal, toggleSignInModal}) =>
                   <MDBInput
                     wrapperClass="mb-4 w-100"
                     label="Email address"
-                    id="formControlLg"
+                    id="login-form-email"
                     type="email"
                     size="lg"
                   />
                   <MDBInput
                     wrapperClass="mb-4 w-100"
                     label="Password"
-                    id="formControlLg"
+                    id="login-form-password"
                     type="password"
                     size="lg"
                   />
 
                   <MDBCheckbox
                     name="flexCheck"
-                    id="flexCheckDefault"
+                    id="login-form-remember"
                     className="mb-4"
                     label="Remember password"
                   />

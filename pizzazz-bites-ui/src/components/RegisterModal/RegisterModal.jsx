@@ -93,7 +93,7 @@ const LoginModal = ({toggleSignInModal}) => {
                       <MDBInput
                         wrapperClass="mb-4"
                         label="First name"
-                        id="form1"
+                        id="register-form-first-name"
                         type="text"
                         required
                         onChange={(e) =>
@@ -109,7 +109,7 @@ const LoginModal = ({toggleSignInModal}) => {
                       <MDBInput
                         wrapperClass="mb-4"
                         label="Last name"
-                        id="form1"
+                        id="register-form-last-name"
                         type="text"
                         required
                         onChange={(e) =>
@@ -122,7 +122,7 @@ const LoginModal = ({toggleSignInModal}) => {
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Email"
-                    id="form1"
+                    id="register-form-email"
                     type="email"
                     required
                     onChange={(e) =>
@@ -132,7 +132,7 @@ const LoginModal = ({toggleSignInModal}) => {
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Password"
-                    id="form1"
+                    id="register-form-password"
                     type="password"
                     required
                     onChange={(e) =>
@@ -144,7 +144,7 @@ const LoginModal = ({toggleSignInModal}) => {
                     <MDBCheckbox
                       name="flexCheck"
                       value=""
-                      id="flexCheckDefault"
+                      id="register-form-newsletter"
                       label="Subscribe to our newsletter"
                     />
                   </div>
