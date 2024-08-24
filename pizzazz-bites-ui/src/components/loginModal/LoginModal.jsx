@@ -14,11 +14,41 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 import "./LoginModal.css";
+import url from "../../../utils/url";
 
-const LoginModal = ({showSignInModal, setShowSignInModal, toggleSignInModal}) => {
+const LoginModal = ({
+  showSignInModal,
+  setShowSignInModal,
+  toggleSignInModal,
+}) => {
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${url}/api/Auth/Login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...loginData }),
+      });
+
+      if (response.ok) {
+        setLoginData({
+          email: "",
+          password: "",
+        });
+        setShowSignInModal(false);
+      }
+    } catch (error) {}
+  };
 
   return (
-    <>
+    <form onSubmit={(e) => handleLoginSubmit(e)}>
       <MDBBtn onClick={toggleSignInModal} className="nav-link">
         Sign in
       </MDBBtn>
@@ -43,6 +73,9 @@ const LoginModal = ({showSignInModal, setShowSignInModal, toggleSignInModal}) =>
                     id="login-form-email"
                     type="email"
                     size="lg"
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, email: e.target.value })
+                    }
                   />
                   <MDBInput
                     wrapperClass="mb-4 w-100"
@@ -50,6 +83,9 @@ const LoginModal = ({showSignInModal, setShowSignInModal, toggleSignInModal}) =>
                     id="login-form-password"
                     type="password"
                     size="lg"
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, password: e.target.value })
+                    }
                   />
 
                   <MDBCheckbox
@@ -86,8 +122,8 @@ const LoginModal = ({showSignInModal, setShowSignInModal, toggleSignInModal}) =>
           </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
-    </>
+    </form>
   );
-}
+};
 
 export default LoginModal;
