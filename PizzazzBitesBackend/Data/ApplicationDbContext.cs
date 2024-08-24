@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
     public DbSet<Salad> Salads { get; set; }
     public DbSet<CharcuterieBoard> CharcuterieBoards { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -51,5 +52,10 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
             .ToTable("CharcuterieBoards")
             .Property(cb => cb.ProductId)
             .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Address>()
+            .HasOne(a => a.User)
+            .WithMany(u => u.Addresses)
+            .HasForeignKey(a => a.UserId);
     }
 }
