@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PizzazzBitesBackend.Contracts;
 using PizzazzBitesBackend.Models;
 
 namespace PizzazzBitesBackend.Services.Authentication;
@@ -67,7 +66,7 @@ public class AuthService : IAuthService
     {
         var userByUserName = _userManager.Users.FirstOrDefaultAsync(u => u.Email == email).Result;
         var result = new AuthResult(false, email, userByUserName.FirstName, userByUserName.LastName, "");
-        result.ErrorMessages.Add("Bad credentials", "Invalid email");
+        result.ErrorMessages.Add("Bad credentials", "Invalid email or password");
         return result;
     }
 
@@ -75,7 +74,7 @@ public class AuthService : IAuthService
     {
         var userByUserName = _userManager.Users.FirstOrDefaultAsync(u => u.Email == email).Result;
         var result = new AuthResult(false, email, userByUserName.FirstName, userByUserName.LastName, "");
-        result.ErrorMessages.Add("Bad credentials", "Invalid password");
+        result.ErrorMessages.Add("Bad credentials", "Invalid email or password");
         return result;
     }
 }
