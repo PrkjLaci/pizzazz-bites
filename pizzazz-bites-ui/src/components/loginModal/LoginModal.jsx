@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   MDBBtn,
   MDBModal,
@@ -15,6 +15,7 @@ import {
 } from "mdb-react-ui-kit";
 import "./LoginModal.css";
 import url from "../../../utils/url";
+import { AuthContext } from "../../../utils/AuthContext";
 
 const LoginModal = ({
   showSignInModal,
@@ -25,6 +26,9 @@ const LoginModal = ({
     email: "",
     password: "",
   });
+
+  const { setUserData } = useContext(AuthContext);
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,15 +42,22 @@ const LoginModal = ({
       });
 
       if (response.ok) {
+        const data = await response.json();
+        setUserData({
+          email: data.email,
+          token: data.token,
+        });
         setLoginData({
           email: "",
           password: "",
         });
         setShowSignInModal(false);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
-
+  
   return (
     <form onSubmit={(e) => handleLoginSubmit(e)}>
       <MDBBtn onClick={toggleSignInModal} className="nav-link">
