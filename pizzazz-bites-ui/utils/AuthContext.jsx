@@ -7,10 +7,7 @@ const AuthProvider = ({ children }) => {
         email: "",
         token: "",
     });
-
-    console.log("userData", userData);
     
-
     return (
         <AuthContext.Provider value={{ userData, setUserData }}>
             {children}
