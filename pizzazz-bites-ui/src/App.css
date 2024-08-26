@@ -14,3 +14,8 @@ header {
   padding-left: 15%;
   padding-right: 15%;
 }
+
+.sticky-top {
+  position: relative;
+  z-index: 1 !important;
+}

@@ -1,18 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./TopNavbar.css";
-import { Button } from "react-bootstrap";
 import LoginModal from "../loginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import ProfileDropdown from "../ProfileDropdown/ProfileDropdown";
+import { AuthContext } from "../../../utils/AuthContext";
 
 const TopNavbar = () => {
   const [showSignInModal, setShowSignInModal] = useState(false);
   const toggleSignInModal = () => setShowSignInModal(!showSignInModal);
+
+  const { userData } = useContext(AuthContext);
 
   return (
     <>
@@ -42,19 +46,25 @@ const TopNavbar = () => {
                 Contacts
               </NavLink>
             </Nav.Item>
-            <Nav.Item>
-              <LoginModal
-                showSignInModal={showSignInModal}
-                setShowSignInModal={setShowSignInModal}
-                toggleSignInModal={toggleSignInModal}
-              />
-            </Nav.Item>
-            <div className="vertical-divider"></div>
-            <Nav.Item>
-              <RegisterModal
-                toggleSignInModal={toggleSignInModal}
-              />
-            </Nav.Item>
+            {userData.token ? (
+              <Nav.Item>
+                <ProfileDropdown />
+              </Nav.Item>
+            ) : (
+              <>
+                <Nav.Item>
+                  <LoginModal
+                    showSignInModal={showSignInModal}
+                    setShowSignInModal={setShowSignInModal}
+                    toggleSignInModal={toggleSignInModal}
+                  />
+                </Nav.Item>
+                <div className="vertical-divider"></div>
+                <Nav.Item>
+                  <RegisterModal toggleSignInModal={toggleSignInModal} />
+                </Nav.Item>
+              </>
+            )}
           </Nav>
         </Container>
       </Navbar>
