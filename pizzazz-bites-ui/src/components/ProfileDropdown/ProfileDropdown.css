@@ -1,0 +1,10 @@
+.profile-dropdown {
+  all: unset !important;
+  color: white !important;
+}
+
+.profile-icon {
+  width: 2rem !important;
+  height: 2rem !important;
+  cursor: pointer;
+}
