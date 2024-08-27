@@ -7,7 +7,7 @@ import {
 } from "mdb-react-ui-kit";
 import { CgProfile } from "react-icons/cg";
 import "./ProfileDropdown.css";
-import PersonalInformationModal from "../Profile/PersonalInformation/PersonalInformation";
+import AccountSettingsModal from "../Profile/AccountSettings/AccountSettingsModal";
 
 const ProfileDropdown = () => {
   const [showPersonalInfoModal, setShowPersonalInfoModal] = useState(false);
@@ -24,20 +24,19 @@ const ProfileDropdown = () => {
         </MDBDropdownToggle>
         <MDBDropdownMenu>
           <MDBDropdownItem link onClick={togglePersonalInfoModal}>
-            Personal Information
+            Account settings
           </MDBDropdownItem>
           <MDBDropdownItem link>Manage address</MDBDropdownItem>
           <MDBDropdownItem link>Coupons & Points</MDBDropdownItem>
           <MDBDropdownItem link>Order history</MDBDropdownItem>
           <MDBDropdownItem link>Favourite orders</MDBDropdownItem>
-          <MDBDropdownItem link>Change password</MDBDropdownItem>
           <MDBDropdownItem divider />
           <MDBDropdownItem link>Sign out</MDBDropdownItem>
         </MDBDropdownMenu>
       </MDBDropdown>
 
       {showPersonalInfoModal && (
-        <PersonalInformationModal
+        <AccountSettingsModal
           isOpen={showPersonalInfoModal}
           toggleModal={togglePersonalInfoModal}
         />
