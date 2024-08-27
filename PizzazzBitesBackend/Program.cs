@@ -12,6 +12,7 @@ using PizzazzBitesBackend.Repository.Drink.Seeder;
 using PizzazzBitesBackend.Repository.Pizza.Seeder;
 using PizzazzBitesBackend.Repository.ProductRepository;
 using PizzazzBitesBackend.Repository.Salad.Seeder;
+using PizzazzBitesBackend.Repository.User;
 using PizzazzBitesBackend.Services.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,8 +43,8 @@ app.UseRouting();
 
 app.UseCors("Development");
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
@@ -65,6 +66,7 @@ void AddServices()
     builder.Services.AddScoped<ICharcuterieBoardSeeder, CharcuterieBoardSeeder>();
     
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
 }
 
 void ConfigureSwagger()
