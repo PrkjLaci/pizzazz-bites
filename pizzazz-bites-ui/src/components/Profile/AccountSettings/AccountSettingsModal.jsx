@@ -25,7 +25,6 @@ const AccountSettingsModal = ({ isOpen, toggleModal }) => {
     lastName: "",
     phoneNumber: "",
   });
-  const [editingPersonalInfo, setEditingPersonalInfo] = useState(false);
   const [togglePersonalInfoForm, setTogglePersonalInfoForm] = useState(false);
   const [toggleChangePasswordForm, setToggleChangePasswordForm] =
     useState(false);
