@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PizzazzBitesBackend.Contracts;
 using PizzazzBitesBackend.Data;
 
@@ -46,6 +47,42 @@ public class UserRepository : IUserRepository
         {
             _logger.LogError(e, "Cannot update user personal info.");
             throw new Exception("Cannot update user personal info.");
+        }
+    }
+
+    public async Task<bool> ChangePassword(ChangePasswordRequest request)
+    {
+        try
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.email);
+            
+            if (user == null)
+            {
+                return false;
+            }
+            
+            if (request.password1 != request.password2)
+            {
+                return false;
+            }
+            
+            var passwordHasher = new PasswordHasher<Models.User>();
+            if (passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.password1) == PasswordVerificationResult.Failed)
+            {
+                return false;
+            }
+            
+            user.PasswordHash = passwordHasher.HashPassword(user, request.newPassword);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return true;
+            
+
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot change password.");
+            throw new Exception("Cannot change password.");
         }
     }
 }

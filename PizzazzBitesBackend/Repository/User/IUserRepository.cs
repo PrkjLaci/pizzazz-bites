@@ -6,4 +6,5 @@ public interface IUserRepository
 {
     Task<UserDataResponse> GetUserByEmail(string email);
     Task UpdateUserPersonalInfo(UserDataResponse userData);
+    Task<bool> ChangePassword(ChangePasswordRequest request);
 }
