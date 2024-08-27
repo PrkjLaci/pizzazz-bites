@@ -87,14 +87,31 @@ const ChangePassword = () => {
             />
           </>
         ) : (
-          <MDBInput
-            className="mb-4"
-            type="password"
-            id="firstName"
-            label="Password"
-            value={"*****"}
-            disabled
-          />
+          <>
+            <MDBInput
+              className="mb-4"
+              type="password"
+              id="disabledPassword1"
+              label="Password"
+              value={"*****"}
+              disabled
+            />
+            <MDBInput
+              className="mb-4"
+              type="password"
+              id="disabledPassword2"
+              label="Password again"
+              value={"*****"}
+              disabled
+            />
+            <MDBInput
+              className="mb-4"
+              type="password"
+              id="disabledPassword2"
+              label="New password"
+              disabled
+            />
+          </>
         )}
       </form>
       {editingPassword ? (
