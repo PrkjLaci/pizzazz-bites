@@ -58,10 +58,6 @@ const LoginModal = ({
       }
       if (response.status === 400) {
         toast.error("Invalid email or password!");
-        setLoginData({
-          email: "",
-          password: "",
-        });
       }
     } catch (error) {
       console.log("Error", error);
