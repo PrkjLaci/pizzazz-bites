@@ -49,4 +49,23 @@ public class UserController : ControllerBase
             throw new Exception("Cannot update user personal info.");
         }
     }
+
+    [Authorize(Roles = "Admin, User")]
+    [HttpPost("change-password")]
+    public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    {
+        try
+        {
+            await _userRepository.ChangePassword(request);
+            
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot change password.");
+            throw new Exception("Cannot change password.");
+        }
+        
+
+        return Ok();
+    }
 }
