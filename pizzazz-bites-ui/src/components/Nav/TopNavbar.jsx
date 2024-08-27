@@ -11,6 +11,7 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import ProfileDropdown from "../ProfileDropdown/ProfileDropdown";
 import { AuthContext } from "../../../utils/AuthContext";
+import { Bounce, ToastContainer } from "react-toastify";
 
 const TopNavbar = () => {
   const [showSignInModal, setShowSignInModal] = useState(false);
@@ -67,6 +68,20 @@ const TopNavbar = () => {
             )}
           </Nav>
         </Container>
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          transition={Bounce}
+        />
       </Navbar>
     </>
   );
