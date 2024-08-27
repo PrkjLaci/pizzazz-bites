@@ -1,0 +1,20 @@
+.modal-body {
+  overflow-y: auto;
+  max-height: 25rem !important;
+}
+
+.toggle-account-settings {
+  cursor: pointer;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-account-settings p {
+    margin: 0;
+}
+
+.toggle-account-settings:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.2rem
+}
