@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   MDBInput,
   MDBCol,
@@ -7,6 +7,8 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 import "./AccountSettingsModal.css";
+import url from "../../../../utils/url";
+import { AuthContext } from "../../../../utils/AuthContext";
 
 const ChangePassword = () => {
   const [editingPassword, setEditingPassword] = useState(false);
@@ -24,9 +26,32 @@ const ChangePassword = () => {
     }));
   };
 
-  const handlePasswordChange = (e) => {
+  const { userData } = useContext(AuthContext);
+
+  const handlePasswordChange = async (e) => {
     e.preventDefault();
     setEditingPassword(false);
+
+    try {
+      const response = await fetch(`${url}/api/User/change-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userData.token}`,
+        },
+        body: JSON.stringify({
+          email: userData.email,
+          password1: password.password1,
+          password2: password.password2,
+          newPassword: password.newPassword,
+        }),
+      });
+      if (response.ok) {
+        console.log("Password updated successfully.");
+      }
+    } catch (error) {
+      console.error(error, "Error updating password.");
+    }
   };
 
   return (
@@ -57,7 +82,6 @@ const ChangePassword = () => {
               type="password"
               id="newPassword"
               label="New password"
-              value={password.password2}
               onChange={handleChange}
               required
             />
