@@ -9,6 +9,8 @@ import {
 import "./AccountSettingsModal.css";
 import url from "../../../../utils/url";
 import { AuthContext } from "../../../../utils/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ChangePassword = () => {
   const [editingPassword, setEditingPassword] = useState(false);
@@ -47,7 +49,16 @@ const ChangePassword = () => {
         }),
       });
       if (response.ok) {
-        console.log("Password updated successfully.");
+        toast.success("Password updated successfully.");
+      } else if (response.status === 400) {
+        setPassword({
+          password1: "",
+          password2: "",
+          newPassword: "",
+        });
+        toast.error("Passwords do not match.");
+      } else if (response.status === 401) {
+        toast.warning("Unauthorized access. Please log in.");
       }
     } catch (error) {
       console.error(error, "Error updating password.");
@@ -82,6 +93,7 @@ const ChangePassword = () => {
               type="password"
               id="newPassword"
               label="New password"
+              value={password.newPassword}
               onChange={handleChange}
               required
             />
@@ -107,7 +119,7 @@ const ChangePassword = () => {
             <MDBInput
               className="mb-4"
               type="password"
-              id="disabledPassword2"
+              id="newPassword"
               label="New password"
               disabled
             />

@@ -56,7 +56,10 @@ public class UserController : ControllerBase
     {
         try
         {
+            if(request.password1 != request.password2)
+                return BadRequest("Passwords do not match.");
             await _userRepository.ChangePassword(request);
+            return Ok("Password changed successfully.");
             
         }
         catch (Exception e)
@@ -65,7 +68,5 @@ public class UserController : ControllerBase
             throw new Exception("Cannot change password.");
         }
         
-
-        return Ok();
     }
 }

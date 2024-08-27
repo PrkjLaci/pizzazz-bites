@@ -16,6 +16,8 @@ import {
 import "./LoginModal.css";
 import url from "../../../utils/url";
 import { AuthContext } from "../../../utils/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginModal = ({
   showSignInModal,
@@ -52,12 +54,20 @@ const LoginModal = ({
           password: "",
         });
         setShowSignInModal(false);
+        toast.success("You have successfully logged in!");
+      }
+      if (response.status === 400) {
+        toast.error("Invalid email or password!");
+        setLoginData({
+          email: "",
+          password: "",
+        });
       }
     } catch (error) {
       console.log("Error", error);
     }
   };
-  
+
   return (
     <form onSubmit={(e) => handleLoginSubmit(e)}>
       <MDBBtn onClick={toggleSignInModal} className="nav-link">

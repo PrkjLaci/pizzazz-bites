@@ -58,18 +58,19 @@ public class UserRepository : IUserRepository
             
             if (user == null)
             {
-                return false;
+                throw new Exception("User not found.");
             }
             
             if (request.password1 != request.password2)
             {
-                return false;
+                throw new Exception("Passwords do not match.");
             }
             
             var passwordHasher = new PasswordHasher<Models.User>();
             if (passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.password1) == PasswordVerificationResult.Failed)
             {
-                return false;
+                throw new Exception("Incorrect password.");
+                
             }
             
             user.PasswordHash = passwordHasher.HashPassword(user, request.newPassword);
