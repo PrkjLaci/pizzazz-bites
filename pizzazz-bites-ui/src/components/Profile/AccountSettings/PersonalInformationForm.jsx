@@ -9,6 +9,8 @@ import {
 import "./AccountSettingsModal.css";
 import url from "../../../../utils/url";
 import { AuthContext } from "../../../../utils/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PersonalInformationForm = ({ userInfo, setUserInfo }) => {
   const handleChange = (e) => {
@@ -47,6 +49,12 @@ const PersonalInformationForm = ({ userInfo, setUserInfo }) => {
           lastName: data.lastName,
           phoneNumber: data.phoneNumber,
         }));
+        toast.success("Personal information updated successfully.");
+      } else {
+        toast.error("Error updating user data.");
+      }
+      if (response.status === 401) {
+        toast.warning("Unauthorized access. Please log in.");
       }
     } catch (error) {
       console.error(error, "Error updating user data.");
