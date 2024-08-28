@@ -1,6 +1,6 @@
 .modal-body {
   overflow-y: auto;
-  max-height: 25rem !important;
+  max-height: 30rem !important;
 }
 
 .toggle-account-settings {
