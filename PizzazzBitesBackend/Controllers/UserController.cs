@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PizzazzBitesBackend.Contracts;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Repository.Address;
 using PizzazzBitesBackend.Repository.User;
 
 namespace PizzazzBitesBackend.Controllers;
@@ -12,11 +13,13 @@ public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
     private readonly IUserRepository _userRepository;
+    private readonly IAddressRepository _addressRepository;
     
-    public UserController(ILogger<UserController> logger, IUserRepository userRepository)
+    public UserController(ILogger<UserController> logger, IUserRepository userRepository, IAddressRepository addressRepository)
     {
         _logger = logger;
         _userRepository = userRepository;
+        _addressRepository = addressRepository;
     }
     
     [Authorize(Roles = "Admin, User")]
@@ -68,5 +71,37 @@ public class UserController : ControllerBase
             throw new Exception("Cannot change password.");
         }
         
+    }
+    
+    [Authorize(Roles = "Admin, User")]
+    [HttpPost("add-address")]
+    public  async Task<ActionResult> AddAddressToUser(string email, [FromBody] Address address)
+    {
+        try
+        {
+            await _addressRepository.AddAddressToUser(email, address);
+            return Ok("Address added successfully.");
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot add address.");
+            throw new Exception("Cannot add address.");
+        }
+    }
+    
+    [Authorize(Roles = "Admin, User")]
+    [HttpGet("get-all-addresses")]
+    public async Task<ActionResult> GetAllAddresses(string email)
+    {
+        try
+        {
+            var addresses = await _addressRepository.GetAllAddresses(email);
+            return Ok(addresses);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot get all addresses.");
+            throw new Exception("Cannot get all addresses.");
+        }
     }
 }
