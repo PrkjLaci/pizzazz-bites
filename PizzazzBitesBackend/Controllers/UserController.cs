@@ -104,4 +104,20 @@ public class UserController : ControllerBase
             throw new Exception("Cannot get all addresses.");
         }
     }
+    
+    [Authorize(Roles = "Admin, User")]
+    [HttpPatch("refresh-address-order")]
+    public async Task<ActionResult> RefreshAddressOrder([FromQuery]string email, [FromBody] List<Address> addresses)
+    {
+        try
+        {
+            await _addressRepository.RefreshAddressOrder(email, addresses);
+            return Ok("Address order refreshed successfully.");
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot refresh address order.");
+            throw new Exception("Cannot refresh address order.");
+        }
+    }
 }
