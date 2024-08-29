@@ -31,10 +31,27 @@ public class AddressRepository : IAddressRepository
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         if (user != null)
         {
-            var addresses = await _context.Addresses.Where(a => a.UserId == user.Id).ToListAsync();
+            var addresses = await _context.Addresses.Where(a => a.UserId == user.Id).OrderBy(a => a.Order).ToListAsync();
             return addresses;
         }
         return null;
+    }
+
+    public async Task RefreshAddressOrder(string email, List<Models.Address> addresses)
+    {
+        var user = await _context.Users.Include(u => u.Addresses).FirstOrDefaultAsync(u => u.Email == email);
+        if (user != null)
+        {
+            foreach (var address in addresses)
+            {
+                var existingAddress = user.Addresses.FirstOrDefault(a => a.Id == address.Id);
+                if (existingAddress != null)
+                {
+                    existingAddress.Order = address.Order;
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task SelectPrimaryAddress(string email, int addressId)
