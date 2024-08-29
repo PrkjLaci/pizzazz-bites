@@ -1,6 +1,9 @@
 .modal-body {
   overflow-y: auto;
-  max-height: 30rem !important;
+  max-height: 39rem !important;
+  scroll-snap-type: none;
+  margin-right: 0.2rem !important;
+  box-sizing: content-box;
 }
 
 .toggle-account-settings {
@@ -11,10 +14,25 @@
 }
 
 .toggle-account-settings p {
-    margin: 0;
+  margin: 0;
 }
 
 .toggle-account-settings:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 0.2rem
+  border-radius: 0.2rem;
+}
+
+.collapse-content {
+  overflow-y: auto;
+  max-height: 39rem;
+  scroll-snap-type: none;
+}
+
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 10px;
 }
