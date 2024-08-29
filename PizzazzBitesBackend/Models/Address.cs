@@ -14,6 +14,7 @@ public class Address
     public string ZipCode { get; set; }
     public string Country { get; set; }
     public string UserId { get; set; }
+    public int Order { get; set; }
     [JsonIgnore]
     public User? User { get; set; }
 }
