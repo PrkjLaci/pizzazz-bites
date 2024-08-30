@@ -79,20 +79,20 @@ public class AuthenticationSeeder
                 new()
                 {
                     HouseNumber = "2", 
-                    Street = "Test Street 2", 
-                    City = "Test City 2", 
-                    State = "Test State2",
+                    Street = "Test Street", 
+                    City = "Test City", 
+                    State = "Test State",
                     ZipCode = "2000", 
-                    Country = "Test Country 2"
+                    Country = "Test Country"
                 },
                 new()
                 {
                     HouseNumber = "3", 
-                    Street = "Test Street 3", 
-                    City = "Test City 3", 
-                    State = "Test State3",
+                    Street = "Test Street", 
+                    City = "Test City", 
+                    State = "Test State",
                     ZipCode = "3000", 
-                    Country = "Test Country 3"
+                    Country = "Test Country"
                 }
             };
 
