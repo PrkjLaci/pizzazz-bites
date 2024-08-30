@@ -26,7 +26,6 @@ const ProfileDropdown = () => {
           <MDBDropdownItem link onClick={togglePersonalInfoModal}>
             Account settings
           </MDBDropdownItem>
-          <MDBDropdownItem link>Manage address</MDBDropdownItem>
           <MDBDropdownItem link>Coupons & Points</MDBDropdownItem>
           <MDBDropdownItem link>Order history</MDBDropdownItem>
           <MDBDropdownItem link>Favourite orders</MDBDropdownItem>
