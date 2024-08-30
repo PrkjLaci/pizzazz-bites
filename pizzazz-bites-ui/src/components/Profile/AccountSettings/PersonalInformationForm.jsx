@@ -74,6 +74,7 @@ const PersonalInformationForm = ({ userInfo, setUserInfo }) => {
               value={userInfo.firstName}
               placeholder={userInfo.firstName}
               onChange={handleChange}
+              style={{ marginTop: "0.3rem" }}
             />
             <MDBInput
               className="mb-4"
@@ -103,6 +104,7 @@ const PersonalInformationForm = ({ userInfo, setUserInfo }) => {
               label="First Name"
               value={userInfo.firstName}
               disabled
+              style={{ marginTop: "0.3rem" }}
             />
             <MDBInput
               className="mb-4"
