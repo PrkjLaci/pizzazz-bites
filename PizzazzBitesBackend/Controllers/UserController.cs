@@ -59,7 +59,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            if(request.password1 != request.password2)
+            if(request.newPassword1 != request.newPassword2)
                 return BadRequest("Passwords do not match.");
             await _userRepository.ChangePassword(request);
             return Ok("Password changed successfully.");
@@ -80,7 +80,7 @@ public class UserController : ControllerBase
         try
         {
             await _addressRepository.AddAddressToUser(email, address);
-            return Ok("Address added successfully.");
+            return Ok(new {message = "Address added successfully.", data = address});
         }
         catch (Exception e)
         {
