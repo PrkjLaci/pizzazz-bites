@@ -17,10 +17,11 @@ public class AddressRepository : IAddressRepository
 
     public async Task AddAddressToUser(string email, Models.Address address)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        var user = await _context.Users.Include(user => user.Addresses).FirstOrDefaultAsync(u => u.Email == email);
         if (user != null)
         {
             address.UserId = user.Id;
+            address.Order = user.Addresses.Count + 1;
             _context.Addresses.Add(address);
             await _context.SaveChangesAsync();
         }
