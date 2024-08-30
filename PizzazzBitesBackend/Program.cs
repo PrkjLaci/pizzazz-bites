@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PizzazzBitesBackend.Data;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Repository.Address;
 using PizzazzBitesBackend.Repository.CheesePlate.Seeder;
 using PizzazzBitesBackend.Repository.Dessert.Seeder;
 using PizzazzBitesBackend.Repository.Drink.Seeder;
@@ -67,6 +68,7 @@ void AddServices()
     
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 }
 
 void ConfigureSwagger()
@@ -176,4 +178,5 @@ void AddAuthSeeder(IServiceScope scope)
     var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthenticationSeeder>();
     authenticationSeeder.AddRoles();
     authenticationSeeder.AddAdmin();
+    authenticationSeeder.AddTestUser();
 }

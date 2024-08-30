@@ -16,6 +16,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
     public DbSet<CharcuterieBoard> CharcuterieBoards { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Address> Addresses { get; set; }
+    public DbSet<PrimaryAddress> PrimaryAddresses { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -53,9 +54,15 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
             .Property(cb => cb.ProductId)
             .ValueGeneratedOnAdd();
 
-        modelBuilder.Entity<Address>()
-            .HasOne(a => a.User)
-            .WithMany(u => u.Addresses)
-            .HasForeignKey(a => a.UserId);
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.PrimaryAddress)
+            .WithOne(pa => pa.User)
+            .HasForeignKey<PrimaryAddress>(a => a.UserId);
+
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Addresses)
+            .WithOne(a => a.User)
+            .HasForeignKey(a => a.UserId)
+            .IsRequired();
     }
 }

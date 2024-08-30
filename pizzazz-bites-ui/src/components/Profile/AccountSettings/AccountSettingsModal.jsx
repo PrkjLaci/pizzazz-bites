@@ -16,6 +16,7 @@ import { useContext, useState, useEffect } from "react";
 import url from "../../../../utils/url";
 import PersonalInformationForm from "./PersonalInformationForm";
 import ChangePassword from "./ChangePassword";
+import ManageAddress from "./ManageAddress/ManageAddress";
 
 const AccountSettingsModal = ({ isOpen, toggleModal }) => {
   const { userData } = useContext(AuthContext);
@@ -26,6 +27,7 @@ const AccountSettingsModal = ({ isOpen, toggleModal }) => {
     phoneNumber: "",
   });
   const [togglePersonalInfoForm, setTogglePersonalInfoForm] = useState(false);
+  const [toggleAddressForm, setToggleAddressForm] = useState(false);
   const [toggleChangePasswordForm, setToggleChangePasswordForm] =
     useState(false);
 
@@ -64,7 +66,7 @@ const AccountSettingsModal = ({ isOpen, toggleModal }) => {
   return (
     <>
       <MDBModal open={isOpen} tabIndex="-1">
-        <MDBModalDialog>
+        <MDBModalDialog >
           <MDBModalContent>
             <MDBModalHeader>
               <MDBModalTitle>Account Settings</MDBModalTitle>
@@ -88,6 +90,15 @@ const AccountSettingsModal = ({ isOpen, toggleModal }) => {
                   userInfo={userInfo}
                   setUserInfo={setUserInfo}
                 />
+              </MDBCollapse>
+              <p
+                className="toggle-account-settings"
+                onClick={() => setToggleAddressForm(!toggleAddressForm)}
+              >
+                Manage Addresses
+              </p>
+              <MDBCollapse open={toggleAddressForm}>
+                <ManageAddress />
               </MDBCollapse>
               <p
                 className="toggle-account-settings"

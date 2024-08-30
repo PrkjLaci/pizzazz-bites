@@ -1,0 +1,10 @@
+.address-info {
+    border-radius: 1rem !important;
+    height: 6.5rem !important;
+}
+
+.collapse-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
