@@ -22,11 +22,6 @@
   border-radius: 0.2rem;
 }
 
-.collapse-content {
-  overflow-y: auto;
-  max-height: 39rem;
-  scroll-snap-type: none;
-}
 
 ::-webkit-scrollbar {
   width: 0.4rem;
@@ -35,4 +30,18 @@
 ::-webkit-scrollbar-thumb {
   background-color: grey;
   border-radius: 10px;
+}
+
+.new-address-card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 1rem;
+  height: 5.5rem !important;
+  background-color: #C8E6C9;
+}
+
+.new-address-p {
+  margin: 0;
 }
