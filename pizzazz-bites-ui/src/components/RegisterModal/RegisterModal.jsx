@@ -16,6 +16,7 @@ import {
 import "./RegisterModal.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import url from "../../../utils/url";
+import { toast } from "react-toastify";
 
 const LoginModal = ({toggleSignInModal}) => {
   const [basicModal, setBasicModal] = useState(false);
@@ -49,6 +50,7 @@ const LoginModal = ({toggleSignInModal}) => {
         });
         toggleOpen();
         toggleSignInModal();
+        toast.success("Registered successfully.");
       }
     } catch (error) {
       console.error("Error registering new user", error);
