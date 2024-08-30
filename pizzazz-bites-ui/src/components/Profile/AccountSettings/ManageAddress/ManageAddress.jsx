@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { closestCorners, DndContext } from "@dnd-kit/core";
+import {
+  closestCorners,
+  DndContext,
+  useSensor,
+  useSensors,
+  PointerSensor,
+} from "@dnd-kit/core";
 import url from "../../../../../utils/url";
 import { AuthContext } from "../../../../../utils/AuthContext";
 import {
@@ -16,11 +22,16 @@ import {
   MDBBtn,
   MDBTooltip,
 } from "mdb-react-ui-kit";
+import "../AccountSettingsModal.css";
+import AddNewAddressModal from "./AddNewAddressModal";
 
 const ManageAddress = () => {
   const [addresses, setAddresses] = useState([]);
   const [editingAddresses, setEditingAddresses] = useState(false);
   const { userData } = useContext(AuthContext);
+  const [addNewAddressOpen, setAddNewAddressOpen] = useState(false);
+
+  console.log("Rendering ManageAddress");
 
   const getAddressPosition = (id) =>
     addresses.findIndex((address) => address.id === id);
@@ -66,7 +77,7 @@ const ManageAddress = () => {
         }
       );
       if (response.ok) {
-        toast.success("Address order saved successfully.");
+        toast.success("Addresses saved successfully.");
       }
     } catch (error) {}
   };
@@ -89,11 +100,29 @@ const ManageAddress = () => {
     });
   };
 
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      delay: 200,
+      tolerance: 100,
+    },
+  });
+
+  const sensors = useSensors(pointerSensor);
+
   useEffect(() => {
     fetchAddresses();
   }, []);
+  console.log("Addresses", addresses);
 
-  console.log(addresses);
+  const toggleAddNewAddress = () => {
+    setAddNewAddressOpen(!addNewAddressOpen);
+  };
+
+  const handleNewAddressAdded = (newAddress) => {
+    console.log("New address added", newAddress);
+    setAddresses((prevAddresses) => [...prevAddresses, newAddress]);
+  };
+  console.log("Addresses", addresses);
 
   return (
     <>
@@ -109,6 +138,7 @@ const ManageAddress = () => {
           <DndContext
             onDragEnd={(e) => handleDragEnd(e)}
             collisionDetection={closestCorners}
+            sensors={sensors}
           >
             <SortableContext
               items={addresses}
@@ -116,21 +146,22 @@ const ManageAddress = () => {
             >
               {addresses.map((address) => {
                 return (
-                  <DraggableAddress
-                    key={address.id}
-                    id={address.id}
-                    address={address}
-                    addresses={addresses}
-                  />
+                  <>
+                    <DraggableAddress
+                      key={address.id}
+                      id={address.id}
+                      address={address}
+                      addresses={addresses}
+                      toggleAddNewAddress={toggleAddNewAddress}
+                    />
+                  </>
                 );
               })}
             </SortableContext>
           </DndContext>
-          <MDBCard>
-            <MDBCardBody className="address-info">
-              <MDBTypography blockquote className="mb-0">
-                <p>Add</p>
-              </MDBTypography>
+          <MDBCard onClick={toggleAddNewAddress}>
+            <MDBCardBody className="new-address-card-body">
+              <p className="new-address-p">+ New Address</p>
             </MDBCardBody>
           </MDBCard>
         </>
@@ -151,7 +182,7 @@ const ManageAddress = () => {
                     <h6>
                       {addresses[0].id === address.id && "Shipping address:"}
                     </h6>
-                    <p>{`${address.houseNumber} ${address.street}`}</p>
+                    <p>{`${address.street} ${address.houseNumber}, ${address.city}, ${address.state}, ${address.zipCode}, ${address.country}`}</p>
                   </MDBTypography>
                 </MDBCardBody>
               </MDBCard>
@@ -167,6 +198,12 @@ const ManageAddress = () => {
       ) : (
         <MDBBtn onClick={() => setEditingAddresses(true)}>Edit</MDBBtn>
       )}
+      <AddNewAddressModal
+        addNewAddressOpen={addNewAddressOpen}
+        setAddNewAddressOpen={setAddNewAddressOpen}
+        toggleOpen={toggleAddNewAddress}
+        onAddressAdded={handleNewAddressAdded}
+      />
     </>
   );
 };
