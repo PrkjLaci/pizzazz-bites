@@ -55,35 +55,37 @@ public class UserRepository : IUserRepository
         try
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.email);
-            
+        
             if (user == null)
             {
                 throw new Exception("User not found.");
             }
-            
-            if (request.password1 != request.password2)
-            {
-                throw new Exception("Passwords do not match.");
-            }
-            
+        
             var passwordHasher = new PasswordHasher<Models.User>();
-            if (passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.password1) == PasswordVerificationResult.Failed)
+            var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.oldPassword);
+        
+            if (passwordVerificationResult == PasswordVerificationResult.Failed)
             {
                 throw new Exception("Incorrect password.");
-                
+            }
+        
+            if (request.newPassword1 != request.newPassword2)
+            {
+                throw new Exception("New passwords do not match.");
             }
             
-            user.PasswordHash = passwordHasher.HashPassword(user, request.newPassword);
+            user.PasswordHash = passwordHasher.HashPassword(user, request.newPassword1);
+        
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
+        
             return true;
-            
-
         }
         catch (Exception e)
         {
             _logger.LogError(e, "Cannot change password.");
-            throw new Exception("Cannot change password.");
+            return false;
         }
     }
+
 }
