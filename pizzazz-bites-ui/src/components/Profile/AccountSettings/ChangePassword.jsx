@@ -15,9 +15,9 @@ import "react-toastify/dist/ReactToastify.css";
 const ChangePassword = () => {
   const [editingPassword, setEditingPassword] = useState(false);
   const [password, setPassword] = useState({
-    password1: "",
-    password2: "",
-    newPassword: "",
+    oldPassword: "",
+    newPassword1: "",
+    newPassword2: "",
   });
 
   const handleChange = (e) => {
@@ -43,9 +43,9 @@ const ChangePassword = () => {
         },
         body: JSON.stringify({
           email: userData.email,
-          password1: password.password1,
-          password2: password.password2,
-          newPassword: password.newPassword,
+          oldPassword: password.oldPassword,
+          newPassword1: password.newPassword1,
+          newPassword2: password.newPassword2,
         }),
       });
       if (response.ok) {
@@ -73,27 +73,28 @@ const ChangePassword = () => {
             <MDBInput
               className="mb-4"
               type="password"
-              id="password1"
-              label="Password"
-              value={password.password1}
+              id="oldPassword"
+              label="Old Password"
+              value={password.oldPassword}
+              onChange={handleChange}
+              required
+              style={{ marginTop: "0.3rem" }}
+            />
+            <MDBInput
+              className="mb-4"
+              type="password"
+              id="newPassword1"
+              label="New Password"
+              value={password.newPassword1}
               onChange={handleChange}
               required
             />
             <MDBInput
               className="mb-4"
               type="password"
-              id="password2"
-              label="Password again"
-              value={password.password2}
-              onChange={handleChange}
-              required
-            />
-            <MDBInput
-              className="mb-4"
-              type="password"
-              id="newPassword"
-              label="New password"
-              value={password.newPassword}
+              id="newPassword2"
+              label="New password again"
+              value={password.newPassword2}
               onChange={handleChange}
               required
             />
@@ -104,23 +105,23 @@ const ChangePassword = () => {
               className="mb-4"
               type="password"
               id="disabledPassword1"
-              label="Password"
+              label="Old Password"
               value={"*****"}
               disabled
+              style={{ marginTop: "0.3rem" }}
             />
             <MDBInput
               className="mb-4"
               type="password"
               id="disabledPassword2"
-              label="Password again"
-              value={"*****"}
+              label="New Password"
               disabled
             />
             <MDBInput
               className="mb-4"
               type="password"
               id="newPassword"
-              label="New password"
+              label="New password again"
               disabled
             />
           </>
