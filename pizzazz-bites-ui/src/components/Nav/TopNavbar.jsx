@@ -9,7 +9,7 @@ import "./TopNavbar.css";
 import LoginModal from "../loginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import ProfileDropdown from "../ProfileDropdown/ProfileDropdown";
+import ProfileDropdown from "../Profile/ProfileDropdown/ProfileDropdown";
 import { AuthContext } from "../../../utils/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
 

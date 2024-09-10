@@ -7,7 +7,7 @@ import {
 } from "mdb-react-ui-kit";
 import { CgProfile } from "react-icons/cg";
 import "./ProfileDropdown.css";
-import AccountSettingsModal from "../Profile/AccountSettings/AccountSettingsModal";
+import AccountSettingsModal from "../AccountSettings/AccountSettingsModal";
 
 const ProfileDropdown = () => {
   const [showPersonalInfoModal, setShowPersonalInfoModal] = useState(false);
