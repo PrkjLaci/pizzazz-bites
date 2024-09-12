@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using PizzazzBitesBackend.Data;
 using PizzazzBitesBackend.Models;
 using PizzazzBitesBackend.Repository.Address;
+using PizzazzBitesBackend.Repository.Cart;
 using PizzazzBitesBackend.Repository.CheesePlate.Seeder;
 using PizzazzBitesBackend.Repository.Dessert.Seeder;
 using PizzazzBitesBackend.Repository.Drink.Seeder;
@@ -51,9 +52,6 @@ app.MapControllers();
 
 app.Run();
 
-
-
-
 void AddServices()
 {
     builder.Services.AddScoped<AuthenticationSeeder>();
@@ -69,6 +67,9 @@ void AddServices()
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+    builder.Services.AddScoped<ICartRepository, CartRepository>();
+    
+    builder.Services.AddHttpContextAccessor();
 }
 
 void ConfigureSwagger()
