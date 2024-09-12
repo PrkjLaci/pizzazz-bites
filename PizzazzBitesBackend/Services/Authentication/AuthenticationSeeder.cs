@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Models.Cart;
 
 namespace PizzazzBitesBackend.Services.Authentication;
 
@@ -103,6 +104,7 @@ public class AuthenticationSeeder
                 FirstName = "John",
                 LastName = "Doe",
                 Addresses = addresses,
+                Cart = new Cart()
             };
             var userCreated = await _userManager.CreateAsync(user, "test123");
 
