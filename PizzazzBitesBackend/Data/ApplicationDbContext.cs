@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Models.Cart;
 using PizzazzBitesBackend.Models.Enum;
 
 namespace PizzazzBitesBackend.Data;
@@ -17,6 +18,8 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
     public DbSet<User> Users { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<PrimaryAddress> PrimaryAddresses { get; set; }
+    public DbSet<Cart> Carts { get; set; }
+    public DbSet<CartProduct> CartProducts { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -64,5 +67,23 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
             .WithOne(a => a.User)
             .HasForeignKey(a => a.UserId)
             .IsRequired();
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Cart)
+            .WithOne(c => c.User)
+            .HasForeignKey<Cart>(c => c.UserId);
+        
+        modelBuilder.Entity<CartProduct>()
+            .HasKey(cp => new { cp.CartId, cp.ProductId });
+        
+        modelBuilder.Entity<CartProduct>()
+            .HasOne(cp => cp.Cart)
+            .WithMany(c => c.CartProducts)
+            .HasForeignKey(cp => cp.CartId);
+
+        modelBuilder.Entity<CartProduct>()
+            .HasOne(cp => cp.Product)
+            .WithMany(p => p.CartProducts)
+            .HasForeignKey(cp => cp.ProductId);
     }
 }
