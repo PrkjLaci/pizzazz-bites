@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PizzazzBitesBackend.Data;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Models.Cart;
 using PizzazzBitesBackend.Repository.Cart;
 
 namespace PizzazzBitesBackend.Controllers;
@@ -21,12 +22,14 @@ public class CartController : ControllerBase
     
     [Authorize (Roles = "User")]
     [HttpPost("add-product-to-cart")]
-    public async Task<IActionResult> AddProductToCart([FromQuery] int productId, [FromQuery] int quantity)
+    public async Task<IActionResult> AddProductToCart([FromQuery] int productId, [FromQuery]int quantity)
     {
         try
         {
+            var product = await _context.Products.FindAsync(productId);
+            var newCartProduct = new CartProduct { Product = product, ProductId = productId, Quantity = quantity };
             await _cartRepository.AddProductToCart(productId, quantity);
-            return Ok(new { message = "Product added to cart successfully." });
+            return Ok(new { message = "Product added to cart successfully.", data = newCartProduct});
         }
         catch (Exception e)
         {
