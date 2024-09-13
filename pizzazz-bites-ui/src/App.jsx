@@ -13,16 +13,23 @@ import siteHeaderItems from "../utils/siteHeaderItems.js";
 function App() {
   const [page, setPage] = useState(1);
   const [clickedSubType, setClickedSubType] = useState("");
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const toggleSignInModal = () => setShowSignInModal(!showSignInModal);
 
   return (
     <Router>
       <header>
-        <TopNavbar />
+        <TopNavbar
+          showSignInModal={showSignInModal}
+          setShowSignInModal={setShowSignInModal}
+          toggleSignInModal={toggleSignInModal}
+        />
         <div className="sticky-top">
           <SiteHeader
             siteHeaderItems={siteHeaderItems}
             setClickedItemType={setClickedSubType}
             setPage={setPage}
+            toggleSignInModal={toggleSignInModal}
           />
         </div>
       </header>

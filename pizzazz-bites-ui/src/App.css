@@ -17,5 +17,5 @@ header {
 
 .sticky-top {
   position: relative;
-  z-index: 1 !important;
+  z-index: 10 !important;
 }
