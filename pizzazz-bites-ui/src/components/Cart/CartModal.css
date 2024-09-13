@@ -1,0 +1,5 @@
+@media (min-width: 992px) {
+    .modal-shopping-cart-dialog.modal-lg {
+        --mdb-modal-width: 60rem;
+    }
+}

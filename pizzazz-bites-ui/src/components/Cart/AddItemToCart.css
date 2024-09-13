@@ -1,0 +1,14 @@
+.modal-add-item-to-cart {
+    color: black;
+    margin-top: 15rem;
+}
+
+.cart-quantity-input {
+    width: 5rem !important;
+}
+
+.cart-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

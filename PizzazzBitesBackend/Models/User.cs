@@ -10,4 +10,5 @@ public class User : IdentityUser
     [JsonIgnore]
     public PrimaryAddress? PrimaryAddress { get; set; }
     public ICollection<Address>? Addresses { get; set; }
+    public Cart.Cart Cart { get; set; }
 }

@@ -76,7 +76,7 @@ const NavFilter = ({
                     placeholder={inputPlaceholder}
                     aria-label="Search"
                   />
-                  <MDBBtn color="primary" type="button">
+                  <MDBBtn color="primary" type="button" className="nav-filter-button">
                     Search
                   </MDBBtn>
                 </form>

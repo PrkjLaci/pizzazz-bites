@@ -1,4 +1,7 @@
-﻿namespace PizzazzBitesBackend.Models;
+﻿using System.Text.Json.Serialization;
+using PizzazzBitesBackend.Models.Cart;
+
+namespace PizzazzBitesBackend.Models;
 
 public abstract class Product
 {
@@ -11,4 +14,6 @@ public abstract class Product
     public bool IsNew { get; set; }
     public decimal Rating { get; set; }
     public int RatingCount { get; set; }
+    [JsonIgnore]
+    public ICollection<CartProduct> CartProducts { get; set; }
 }

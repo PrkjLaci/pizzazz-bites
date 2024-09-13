@@ -1,0 +1,15 @@
+.delete-cart-item {
+  color: red;
+  cursor: pointer;
+}
+
+
+.cart-quantity-input::-webkit-inner-spin-button,
+.cart-quantity-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cart-quantity-input{
+  text-align: center !important;
+}
