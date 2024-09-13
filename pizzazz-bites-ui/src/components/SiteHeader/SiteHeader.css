@@ -41,6 +41,31 @@
 }
 
 .navbar {
-  box-shadow: none !important; 
+  box-shadow: none !important;
 }
 
+.shopping-cart-button {
+  all: unset;
+}
+
+.shopping-cart-button:hover {
+  all: unset;
+  --mdb-btn-bg: none;
+  --mdb-btn-color: none;
+  --mdb-btn-box-shadow: none;
+  --mdb-btn-hover-bg: none;
+  --mdb-btn-hover-color: none;
+  --mdb-btn-focus-bg: none;
+  --mdb-btn-focus-color: none;
+  --mdb-btn-active-bg: none;
+  --mdb-btn-active-color: none;
+  --mdb-btn-box-shadow-state: none;
+}
+
+.shopping-cart-button:hover .shopping-cart-icon {
+  color: #fbba00;
+}
+
+.shopping-cart-button:focus {
+  all: unset;
+}
