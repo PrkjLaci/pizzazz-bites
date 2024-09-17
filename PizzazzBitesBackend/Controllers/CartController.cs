@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzazzBitesBackend.Data;
-using PizzazzBitesBackend.Models;
 using PizzazzBitesBackend.Models.Cart;
 using PizzazzBitesBackend.Repository.Cart;
 
@@ -52,7 +51,7 @@ public class CartController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "User")]
+    [Authorize (Roles = "User")]
     [HttpPatch("decrease-product-quantity-in-cart")]
     public async Task<IActionResult> DecreaseProductQuantityInCart([FromBody] int productId)
     {
@@ -60,6 +59,21 @@ public class CartController : ControllerBase
         {
             await _cartRepository.DecreaseProductQuantityInCart(productId);
             return Ok(new { message = "Product quantity decreased successfully." });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.Message });
+        }
+    }
+
+    [Authorize(Roles = "User")]
+    [HttpPatch("increase-product-quantity-in-cart")]
+    public async Task<IActionResult> IncreaseProductQuantityInCart([FromBody] int productId)
+    {
+        try
+        {
+            await _cartRepository.IncreaseProductQuantityInCart(productId);
+            return Ok(new { message = "Product quantity increased successfully." });
         }
         catch (Exception e)
         {
