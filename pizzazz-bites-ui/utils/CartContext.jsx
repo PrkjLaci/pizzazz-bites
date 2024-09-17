@@ -77,13 +77,81 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const decreaseCartItemQuantity = async (productId) => {
+    try {
+      const response = await fetch(
+        `${url}/api/Cart/decrease-product-quantity-in-cart`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userData.token}`,
+          },
+          body: JSON.stringify(productId),
+        }
+      );
+      if (response.ok) {
+        const products = cartItems.map((item) => {
+          if (item.productId === productId) {
+            item.quantity -= 1;
+          }
+          toast.success(`Decreased quantity of ${item.product.name}!`);
+          return item;
+        });
+        if (
+          products.find((item) => item.productId === productId).quantity === 0
+        ) {
+          removeItemFromCart(productId);
+        }
+        setCartItems(products);
+      }
+    } catch (error) {
+      console.error("Error decreasing item quantity:", error);
+    }
+  };
+
+  const increaseCartItemQuantity = async (productId) => {
+    try {
+      const response = await fetch(
+        `${url}/api/Cart/increase-product-quantity-in-cart`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userData.token}`,
+          },
+          body: JSON.stringify(productId),
+        }
+      );
+      if (response.ok) {
+        const products = cartItems.map((item) => {
+          if (item.productId === productId) {
+            item.quantity += 1;
+          }
+          toast.success(`Increased quantity of ${item.product.name}!`);
+          return item;
+        });
+        setCartItems(products);
+      }
+    } catch (error) {
+      console.error("Error increasing item quantity:", error);
+    }
+  };
+
   useEffect(() => {
     fetchCartItems();
   }, [userData]);
 
   return (
     <CartContext.Provider
-      value={{ cartItems, fetchCartItems, addItemToCart, removeItemFromCart }}
+      value={{
+        cartItems,
+        fetchCartItems,
+        addItemToCart,
+        removeItemFromCart,
+        decreaseCartItemQuantity,
+        increaseCartItemQuantity
+      }}
     >
       {children}
     </CartContext.Provider>
