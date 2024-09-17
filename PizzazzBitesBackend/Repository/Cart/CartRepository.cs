@@ -72,6 +72,18 @@ public class CartRepository : ICartRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task IncreaseProductQuantityInCart(int productId)
+    {
+        var cart = await _context.Carts.Include(c => c.CartProducts).FirstOrDefaultAsync(c => c.UserId == UserId);
+        var cartProduct = cart?.CartProducts.FirstOrDefault(cp => cp.ProductId == productId);
+        if (cartProduct != null)
+        {
+            cartProduct.Quantity++;
+        }
+
+        await _context.SaveChangesAsync();
+    }
+
     public async Task RemoveProductFromCart(int productId)
     {
         var cart = await _context.Carts.Include(c => c.CartProducts).FirstOrDefaultAsync(c => c.UserId == UserId);

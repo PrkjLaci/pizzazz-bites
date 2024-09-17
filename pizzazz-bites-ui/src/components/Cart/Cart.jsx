@@ -18,7 +18,13 @@ import { ImBin2 } from "react-icons/im";
 import "./Cart.css";
 
 const Cart = ({ toggleSignInModal, toggleCartModal }) => {
-  const { cartItems, fetchCartItems, removeItemFromCart } = useContext(CartContext);
+  const {
+    cartItems,
+    fetchCartItems,
+    removeItemFromCart,
+    decreaseCartItemQuantity,
+    increaseCartItemQuantity,
+  } = useContext(CartContext);
   const [guest, setGuest] = useState(false);
   const [guestModalOpen, setGuestModalOpen] = useState(false);
 
@@ -40,8 +46,6 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
       setGuestModalOpen(true);
     }
   }, [userData]);
-
-  console.log(cartItems);
 
   return (
     <>
@@ -90,7 +94,13 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                             xl="3"
                             className="d-flex align-items-center"
                           >
-                            <MDBBtn color="link" className="px-2">
+                            <MDBBtn
+                              color="link"
+                              className="px-2"
+                              onClick={() =>
+                                decreaseCartItemQuantity(item.productId)
+                              }
+                            >
                               <MDBIcon fas icon="minus" />
                             </MDBBtn>
 
@@ -102,7 +112,13 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                               className="cart-quantity-input"
                             />
 
-                            <MDBBtn color="link" className="px-2">
+                            <MDBBtn
+                              color="link"
+                              className="px-2"
+                              onClick={() =>
+                                increaseCartItemQuantity(item.productId)
+                              }
+                            >
                               <MDBIcon fas icon="plus" />
                             </MDBBtn>
                           </MDBCol>
@@ -112,7 +128,10 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                             </MDBTypography>
                           </MDBCol>
                           <MDBCol md="1" lg="1" xl="1" className="text-end">
-                            <ImBin2 className="delete-cart-item" onClick={() => removeItemFromCart(item.productId)}/>
+                            <ImBin2
+                              className="delete-cart-item"
+                              onClick={() => removeItemFromCart(item.productId)}
+                            />
                           </MDBCol>
                         </MDBRow>
 
@@ -148,7 +167,7 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                         items {cartItems.length}
                       </MDBTypography>
                       <MDBTypography tag="h5">
-                      {cartItems.reduce((acc, item) => {
+                        {cartItems.reduce((acc, item) => {
                           return acc + item.product.price * item.quantity;
                         }, 0)}
                         .-
