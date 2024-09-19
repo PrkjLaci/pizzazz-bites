@@ -18,6 +18,7 @@ const MenuItem = ({
 }) => {
   const [items, setItems] = useState([]);
   const [itemCount, setItemCount] = useState(0);
+  const [rating, setRating] = useState({});
 
   useEffect(() => {
     fetchMenuItems(
@@ -28,7 +29,11 @@ const MenuItem = ({
       setItems,
       setItemCount
     );
-  }, [clickedSubType, page, productType]);
+  }, [clickedSubType, page, productType, rating]);
+  console.log("is re-rendering");
+  console.log("items", items);
+  
+  
 
   return (
     <div className="item-container">
@@ -45,8 +50,11 @@ const MenuItem = ({
       <ItemTable
         itemName={productType}
         items={items}
+        setItems={setItems}
         clickedItemType={clickedSubType}
         page={page}
+        rating={rating}
+        setRating={setRating}
       />
       <Pagination page={page} setPage={setPage} itemCount={itemCount} />
     </div>
