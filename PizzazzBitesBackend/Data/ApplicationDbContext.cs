@@ -20,6 +20,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
     public DbSet<PrimaryAddress> PrimaryAddresses { get; set; }
     public DbSet<Cart> Carts { get; set; }
     public DbSet<CartProduct> CartProducts { get; set; }
+    public DbSet<Rating> Ratings { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -85,5 +86,8 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string
             .HasOne(cp => cp.Product)
             .WithMany(p => p.CartProducts)
             .HasForeignKey(cp => cp.ProductId);
+        
+        modelBuilder.Entity<Rating>()
+            .HasKey(r => new { r.UserId, r.ProductId });
     }
 }
