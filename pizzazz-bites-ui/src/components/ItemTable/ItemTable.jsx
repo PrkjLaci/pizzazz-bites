@@ -7,16 +7,43 @@ import {
   MDBTableBody,
 } from "mdb-react-ui-kit";
 import "./ItemTable.css";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AddItemToCart from "../Cart/AddItemToCart";
+import StarRating from "../StarRating/StarRating";
+import { RateContext } from "../../../utils/RateContext";
 
-const ItemTable = ({ itemName, items, clickedItemType, page }) => {
+const ItemTable = ({
+  itemName,
+  items,
+  setItems,
+  clickedItemType,
+  page,
+  rating,
+  setRating,
+}) => {
   const [showAddItemToCart, setShowAddItemToCart] = useState(false);
   const [clickedItem, setClickedItem] = useState({});
 
+  const { rateItem } = useContext(RateContext);
+
   const toggleAddItemToCart = () => setShowAddItemToCart(!showAddItemToCart);
 
-  console.log("clickedItem", clickedItem);
+  const handleRatingChange = async (item, newRating) => {
+    setRating((prevRatings) => ({
+      ...prevRatings,
+      [item.id]: newRating,
+    }));
+    const ratedItem = await rateItem(item.id, newRating, item);
+    if (ratedItem) {
+      setItems((prevItems) =>
+        prevItems.map((prevItem) =>
+          prevItem.id === item.id
+            ? { ...prevItem, rating: newRating, ...ratedItem }
+            : prevItem
+        )
+      );
+    }
+  };
 
   return (
     <>
@@ -28,6 +55,7 @@ const ItemTable = ({ itemName, items, clickedItemType, page }) => {
               {clickedItemType === "" ? "Show All" : clickedItemType} » {page}{" "}
               page
             </th>
+            <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -63,6 +91,14 @@ const ItemTable = ({ itemName, items, clickedItemType, page }) => {
                 <p className="mb-1">
                   <i>{item.volume}</i>
                 </p>
+              </td>
+              <td className="table-rating">
+                <StarRating
+                  item={item}
+                  rating={rating[item.id]}
+                  setRating={setRating}
+                  handleRatingChange={handleRatingChange}
+                />
               </td>
               <td className="table-pricing">
                 {item.price}.-
