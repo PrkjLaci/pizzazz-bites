@@ -15,12 +15,16 @@ import {
 } from "mdb-react-ui-kit";
 import { AuthContext } from "../../../utils/AuthContext";
 import url from "../../../utils/url";
+import { toast } from "react-toastify";
 
 const CheckoutModal = ({
   toggleCheckoutModal,
+  toggleOrderDetailsModal,
   cartItems,
+  setCartItems,
   primaryAddress,
   addresses,
+  setOrderDetails,
 }) => {
   const [order, setOrder] = useState({
     address: primaryAddress,
@@ -43,6 +47,11 @@ const CheckoutModal = ({
         body: JSON.stringify(order),
       });
       if (response.ok) {
+        const responseObj = await response.json();
+        setOrderDetails(responseObj.data);
+        toast.success("Order placed successfully!");
+        setCartItems([]);
+        toggleOrderDetailsModal();
         toggleCheckoutModal();
       }
     } catch (error) {
@@ -51,7 +60,6 @@ const CheckoutModal = ({
   };
 
   console.log(order);
-  
 
   return (
     <>
