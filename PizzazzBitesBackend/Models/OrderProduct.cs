@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization;
-using PizzazzBitesBackend.Models.Cart;
+﻿using System.Text.Json.Serialization;
 
 namespace PizzazzBitesBackend.Models;
 
