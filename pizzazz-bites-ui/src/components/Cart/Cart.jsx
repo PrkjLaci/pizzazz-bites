@@ -18,10 +18,12 @@ import { ImBin2 } from "react-icons/im";
 import "./Cart.css";
 import url from "../../../utils/url";
 import CheckoutModal from "../Checkout/CheckoutModal";
+import OrderDetailsModal from "../Checkout/OrderDetailsModal";
 
 const Cart = ({ toggleSignInModal, toggleCartModal }) => {
   const {
     cartItems,
+    setCartItems,
     fetchCartItems,
     removeItemFromCart,
     decreaseCartItemQuantity,
@@ -30,7 +32,9 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
   const [guest, setGuest] = useState(false);
   const [guestModalOpen, setGuestModalOpen] = useState(false);
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+  const [orderDetailsModalOpen, setOrderDetailsModalOpen] = useState(false);
   const [addresses, setAddresses] = useState([]);
+  const [orderDetails, setOrderDetails] = useState({});
   const baseDeliveryFee = 500;
   const cartItemsTotal = cartItems.reduce((acc, item) => {
     return acc + item.product.price * item.quantity;
@@ -56,12 +60,24 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
     }
   };
 
+  const cartItemTotal = (items) => {
+    const baseDeliveryFee = 500;
+    const itemSum = items.reduce((acc, item) => {
+      return acc + item.product.price * item.quantity;
+    }, 0);
+    return itemSum > 4000 ? itemSum : itemSum + baseDeliveryFee;
+  };
+
   const toggleGuestModal = () => {
     setGuestModalOpen(!guestModalOpen);
   };
 
   const toggleCheckoutModal = () => {
     setCheckoutModalOpen(!checkoutModalOpen);
+  };
+
+  const toggleOrderDetailsModal = () => {
+    setOrderDetailsModalOpen(!orderDetailsModalOpen);
   };
 
   useEffect(() => {
@@ -80,8 +96,6 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
       setGuestModalOpen(true);
     }
   }, [userData]);
-
-  console.log(cartItems);
 
   return (
     <>
@@ -240,10 +254,7 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                         Total price
                       </MDBTypography>
                       <MDBTypography tag="h5">
-                        {cartItemsTotal > 4000
-                          ? cartItemsTotal
-                          : cartItemsTotal + baseDeliveryFee}
-                        .-
+                        {cartItemTotal(cartItems)}.-
                       </MDBTypography>
                     </div>
 
@@ -252,6 +263,7 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                       block
                       size="lg"
                       onClick={toggleCheckoutModal}
+                      disabled={cartItems.length === 0}
                     >
                       Check out
                     </MDBBtn>
@@ -274,8 +286,21 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
         <CheckoutModal
           toggleCheckoutModal={toggleCheckoutModal}
           cartItems={cartItems}
+          setCartItems={setCartItems}
           primaryAddress={`${addresses[0].street} ${addresses[0].houseNumber}. ${addresses[0].city}, ${addresses[0].state}, ${addresses[0].country}`}
           addresses={addresses}
+          toggleOrderDetailsModal={toggleOrderDetailsModal}
+          setOrderDetails={setOrderDetails}
+        />
+      )}
+      {orderDetailsModalOpen && (
+        <OrderDetailsModal
+          orderDetailsModalOpen={orderDetailsModalOpen}
+          setOrderDetailsModalOpen={setOrderDetailsModalOpen}
+          toggleOrderDetailsModal={toggleOrderDetailsModal}
+          toggleCartModal={toggleCartModal}
+          orderDetails={orderDetails}
+          cartItemTotal={cartItemTotal}
         />
       )}
     </>
