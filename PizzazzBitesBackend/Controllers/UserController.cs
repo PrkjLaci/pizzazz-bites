@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzazzBitesBackend.Contracts;
 using PizzazzBitesBackend.Models;
@@ -14,12 +15,14 @@ public class UserController : ControllerBase
     private readonly ILogger<UserController> _logger;
     private readonly IUserRepository _userRepository;
     private readonly IAddressRepository _addressRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     
-    public UserController(ILogger<UserController> logger, IUserRepository userRepository, IAddressRepository addressRepository)
+    public UserController(ILogger<UserController> logger, IUserRepository userRepository, IAddressRepository addressRepository, IHttpContextAccessor httpContextAccessor)
     {
         _logger = logger;
         _userRepository = userRepository;
         _addressRepository = addressRepository;
+        _httpContextAccessor = httpContextAccessor;
     }
     
     [Authorize(Roles = "Admin, User")]
@@ -91,12 +94,17 @@ public class UserController : ControllerBase
     
     [Authorize(Roles = "Admin, User")]
     [HttpGet("get-all-addresses")]
-    public async Task<ActionResult> GetAllAddresses(string email)
+    public async Task<ActionResult> GetAllAddresses()
     {
         try
         {
-            var addresses = await _addressRepository.GetAllAddresses(email);
-            return Ok(addresses);
+            var email = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Email)?.Value;
+            if (email != null)
+            {
+                var addresses = await _addressRepository.GetAllAddresses(email);
+                return Ok(addresses);
+            }
+            return BadRequest("Email not found.");
         }
         catch (Exception e)
         {
@@ -118,6 +126,20 @@ public class UserController : ControllerBase
         {
             _logger.LogError(e, "Cannot refresh address order.");
             throw new Exception("Cannot refresh address order.");
+        }
+    }
+    [Authorize (Roles = "User")]
+    [HttpGet("get-primary-address")]
+    public async Task<ActionResult<PrimaryAddress?>> GetPrimaryAddress()
+    {
+        try
+        {
+            return await _addressRepository.GetPrimaryAddress();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot get primary address.");
+            throw new Exception("Cannot get primary address.");
         }
     }
 }

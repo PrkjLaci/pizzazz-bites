@@ -11,6 +11,7 @@ using PizzazzBitesBackend.Repository.Cart;
 using PizzazzBitesBackend.Repository.CheesePlate.Seeder;
 using PizzazzBitesBackend.Repository.Dessert.Seeder;
 using PizzazzBitesBackend.Repository.Drink.Seeder;
+using PizzazzBitesBackend.Repository.Order;
 using PizzazzBitesBackend.Repository.Pizza.Seeder;
 using PizzazzBitesBackend.Repository.ProductRepository;
 using PizzazzBitesBackend.Repository.Rating;
@@ -70,6 +71,7 @@ void AddServices()
     builder.Services.AddScoped<IAddressRepository, AddressRepository>();
     builder.Services.AddScoped<ICartRepository, CartRepository>();
     builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+    builder.Services.AddScoped<IOrderRepository, OrderRepository>();
     
     builder.Services.AddHttpContextAccessor();
 }

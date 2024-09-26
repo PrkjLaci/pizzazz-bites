@@ -3,6 +3,7 @@ using PizzazzBitesBackend.Models.Cart;
 
 namespace PizzazzBitesBackend.Models;
 
+[JsonDerivedType(typeof(Pizza), "Pizza")]
 public abstract class Product
 {
     public int Id { get; set; }
@@ -15,5 +16,7 @@ public abstract class Product
     public decimal Rating { get; set; }
     public int RatingCount { get; set; }
     [JsonIgnore]
-    public ICollection<CartProduct> CartProducts { get; set; }
+    public ICollection<CartProduct>? CartProducts { get; set; }
+    [JsonIgnore]
+    public ICollection<OrderProduct>? OrderProducts { get; set; }
 }

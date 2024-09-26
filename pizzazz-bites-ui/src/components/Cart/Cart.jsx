@@ -16,10 +16,14 @@ import { CartContext } from "../../../utils/CartContext";
 import GuestModal from "./GuestModal";
 import { ImBin2 } from "react-icons/im";
 import "./Cart.css";
+import url from "../../../utils/url";
+import CheckoutModal from "../Checkout/CheckoutModal";
+import OrderDetailsModal from "../Checkout/OrderDetailsModal";
 
 const Cart = ({ toggleSignInModal, toggleCartModal }) => {
   const {
     cartItems,
+    setCartItems,
     fetchCartItems,
     removeItemFromCart,
     decreaseCartItemQuantity,
@@ -27,12 +31,58 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
   } = useContext(CartContext);
   const [guest, setGuest] = useState(false);
   const [guestModalOpen, setGuestModalOpen] = useState(false);
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+  const [orderDetailsModalOpen, setOrderDetailsModalOpen] = useState(false);
+  const [addresses, setAddresses] = useState([]);
+  const [orderDetails, setOrderDetails] = useState({});
+  const baseDeliveryFee = 500;
+  const cartItemsTotal = cartItems.reduce((acc, item) => {
+    return acc + item.product.price * item.quantity;
+  }, 0);
 
   const { userData } = useContext(AuthContext);
+
+  const fetchAddresses = async () => {
+    try {
+      const response = await fetch(`${url}/api/User/get-all-addresses`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userData.token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setAddresses(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const cartItemTotal = (items) => {
+    const baseDeliveryFee = 500;
+    const itemSum = items.reduce((acc, item) => {
+      return acc + item.product.price * item.quantity;
+    }, 0);
+    return itemSum > 4000 ? itemSum : itemSum + baseDeliveryFee;
+  };
 
   const toggleGuestModal = () => {
     setGuestModalOpen(!guestModalOpen);
   };
+
+  const toggleCheckoutModal = () => {
+    setCheckoutModalOpen(!checkoutModalOpen);
+  };
+
+  const toggleOrderDetailsModal = () => {
+    setOrderDetailsModalOpen(!orderDetailsModalOpen);
+  };
+
+  useEffect(() => {
+    fetchAddresses();
+  }, []);
 
   useEffect(() => {
     if (userData && userData.token) {
@@ -166,12 +216,7 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                       <MDBTypography tag="h5" className="text-uppercase">
                         items {cartItems.length}
                       </MDBTypography>
-                      <MDBTypography tag="h5">
-                        {cartItems.reduce((acc, item) => {
-                          return acc + item.product.price * item.quantity;
-                        }, 0)}
-                        .-
-                      </MDBTypography>
+                      <MDBTypography tag="h5">{cartItemsTotal}.-</MDBTypography>
                     </div>
 
                     <MDBTypography tag="h5" className="text-uppercase mb-3">
@@ -183,7 +228,14 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                         className="select p-2 rounded bg-grey"
                         style={{ width: "100%" }}
                       >
-                        <option value="1">Standard-Delivery- €5.00</option>
+                        {cartItemsTotal > 4000 && (
+                          <option value="2">Free (over 4000.-)</option>
+                        )}
+                        {cartItemsTotal < 4000 && (
+                          <option value="1">
+                            Standard Delivery {baseDeliveryFee}.-
+                          </option>
+                        )}
                       </select>
                     </div>
 
@@ -202,14 +254,17 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                         Total price
                       </MDBTypography>
                       <MDBTypography tag="h5">
-                        {cartItems.reduce((acc, item) => {
-                          return acc + item.product.price * item.quantity;
-                        }, 0)}
-                        .-
+                        {cartItemTotal(cartItems)}.-
                       </MDBTypography>
                     </div>
 
-                    <MDBBtn color="dark" block size="lg">
+                    <MDBBtn
+                      color="dark"
+                      block
+                      size="lg"
+                      onClick={toggleCheckoutModal}
+                      disabled={cartItems.length === 0}
+                    >
                       Check out
                     </MDBBtn>
                   </div>
@@ -225,6 +280,27 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
           setGuestModalOpen={setGuestModalOpen}
           toggleGuestModal={toggleGuestModal}
           toggleSignInModal={toggleSignInModal}
+        />
+      )}
+      {checkoutModalOpen && (
+        <CheckoutModal
+          toggleCheckoutModal={toggleCheckoutModal}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+          primaryAddress={`${addresses[0].street} ${addresses[0].houseNumber}. ${addresses[0].city}, ${addresses[0].state}, ${addresses[0].country}`}
+          addresses={addresses}
+          toggleOrderDetailsModal={toggleOrderDetailsModal}
+          setOrderDetails={setOrderDetails}
+        />
+      )}
+      {orderDetailsModalOpen && (
+        <OrderDetailsModal
+          orderDetailsModalOpen={orderDetailsModalOpen}
+          setOrderDetailsModalOpen={setOrderDetailsModalOpen}
+          toggleOrderDetailsModal={toggleOrderDetailsModal}
+          toggleCartModal={toggleCartModal}
+          orderDetails={orderDetails}
+          cartItemTotal={cartItemTotal}
         />
       )}
     </>
