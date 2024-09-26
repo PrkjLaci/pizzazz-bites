@@ -11,4 +11,5 @@ public class User : IdentityUser
     public PrimaryAddress? PrimaryAddress { get; set; }
     public ICollection<Address>? Addresses { get; set; }
     public Cart.Cart Cart { get; set; }
+    public ICollection<Order>? Orders { get; set; }
 }
