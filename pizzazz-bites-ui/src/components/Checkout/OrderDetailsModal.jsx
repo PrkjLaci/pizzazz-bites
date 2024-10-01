@@ -19,6 +19,9 @@ const OrderDetailsModal = ({
   orderDetails,
   cartItemTotal,
 }) => {
+
+  console.log("orderDetails", orderDetails);
+  
   return (
     <>
       <MDBModal
