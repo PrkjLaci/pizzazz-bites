@@ -52,14 +52,11 @@ const CheckoutModal = ({
         toast.success("Order placed successfully!");
         setCartItems([]);
         toggleOrderDetailsModal();
-        toggleCheckoutModal();
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(order);
 
   return (
     <>
