@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PizzazzBitesBackend.Data;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Repository.LoyaltyPoint;
 
 namespace PizzazzBitesBackend.Repository.Order;
 
@@ -9,13 +10,15 @@ public class OrderRepository : IOrderRepository
 {
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ILoyaltyPointRepository _loyaltyPointRepository;
     private readonly ILogger<OrderRepository> _logger;
     private string UserId => _httpContextAccessor.HttpContext.User.FindAll(ClaimTypes.NameIdentifier).Last().Value;
 
-    public OrderRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<OrderRepository> logger)
+    public OrderRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILoyaltyPointRepository loyaltyPointRepository, ILogger<OrderRepository> logger)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
+        _loyaltyPointRepository = loyaltyPointRepository;
         _logger = logger;
     }
     public async Task<Models.Order> AddOrder(Models.Order order)
@@ -38,7 +41,7 @@ public class OrderRepository : IOrderRepository
             {
                 throw new Exception("Cart is empty");
             }
-            
+
             var newOrder = new Models.Order
             {
                 UserId = UserId,
@@ -49,8 +52,18 @@ public class OrderRepository : IOrderRepository
                     Product = cp.Product,
                 }).ToList(),
                 Address = order.Address,
-                PaymentMethod = order.PaymentMethod
+                PaymentMethod = order.PaymentMethod,
+                LoyaltyPointsUsed = order.LoyaltyPointsUsed,
+                LoyaltyPointsEarned = order.LoyaltyPointsUsed == 0M
+                    ? Math.Round(cart.CartProducts.Sum(cp =>
+                    {
+                        if (cp.Product != null) return cp.Product.Price * cp.Quantity;
+                        return 0;
+                    }) * 0.01m)
+                    : 0
             };
+            
+            await _loyaltyPointRepository.AddLoyaltyPoint(Math.Round(newOrder.LoyaltyPointsEarned));
             
             _context.CartProducts.RemoveRange(cart.CartProducts);
             
