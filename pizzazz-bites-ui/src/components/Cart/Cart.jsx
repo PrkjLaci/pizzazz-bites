@@ -4,6 +4,7 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBCardText,
+  MDBCheckbox,
   MDBCol,
   MDBIcon,
   MDBInput,
@@ -35,6 +36,12 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
   const [orderDetailsModalOpen, setOrderDetailsModalOpen] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [orderDetails, setOrderDetails] = useState({});
+  const [loyaltyPoints, setLoyaltyPoints] = useState({
+    loyaltyPointsToSpend: 0,
+    loyaltyPointsEarned: 0,
+    totalLoyaltyPoints: 0,
+  });
+  const [useLoyaltyPoints, setUseLoyaltyPoints] = useState(false);
   const baseDeliveryFee = 500;
   const cartItemsTotal = cartItems.reduce((acc, item) => {
     return acc + item.product.price * item.quantity;
@@ -54,6 +61,29 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
       if (response.ok) {
         const data = await response.json();
         setAddresses(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchLoyaltyPoints = async () => {
+    try {
+      const response = await fetch(
+        `${url}/api/LoyaltyPoint/get-loyalty-points`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userData.token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const responseObj = await response.json();
+        setLoyaltyPoints({
+          totalLoyaltyPoints: responseObj.data,
+        });
       }
     } catch (error) {
       console.error(error);
@@ -80,6 +110,10 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
     setOrderDetailsModalOpen(!orderDetailsModalOpen);
   };
 
+  const toggleUseLoyaltyPoints = () => {
+    setUseLoyaltyPoints(!useLoyaltyPoints);
+  };
+
   useEffect(() => {
     fetchAddresses();
   }, []);
@@ -87,6 +121,7 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
   useEffect(() => {
     if (userData && userData.token) {
       fetchCartItems();
+      fetchLoyaltyPoints();
     }
   }, [userData]);
 
@@ -96,6 +131,8 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
       setGuestModalOpen(true);
     }
   }, [userData]);
+
+  console.log(loyaltyPoints);
 
   return (
     <>
@@ -240,11 +277,54 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
                     </div>
 
                     <MDBTypography tag="h5" className="text-uppercase mb-3">
+                      <MDBCheckbox
+                        label="Use loyalty points"
+                        onChange={() => toggleUseLoyaltyPoints()}
+                      />
+                    </MDBTypography>
+                    {useLoyaltyPoints && (
+                      <div className="mb-2">
+                        <p>Your points: {loyaltyPoints.totalLoyaltyPoints}</p>
+                        <MDBInput
+                          size="lg"
+                          label="Enter your points"
+                          className="mb-0"
+                          type="number"
+                          min={500}
+                          max={1000}
+                          placeholder="500"
+                          onChange={(e) => {
+                            setLoyaltyPoints({
+                              ...loyaltyPoints,
+                              loyaltyPointsToSpend: e.target.value,
+                            });
+                          }}
+                        >
+                          <div className="form-helper">
+                            Min 500 points, max 1000 points
+                          </div>
+                        </MDBInput>
+                      </div>
+                    )}
+
+                    <MDBTypography
+                      tag="h5"
+                      className="text-uppercase mb-3"
+                      style={
+                        useLoyaltyPoints
+                          ? { marginTop: "2rem" }
+                          : { marginTop: "" }
+                      }
+                    >
                       Give code
                     </MDBTypography>
 
                     <div className="mb-2">
-                      <MDBInput size="lg" label="Enter your code" />
+                      <MDBInput
+                        size="lg"
+                        label="Enter your code"
+                        className="mb-3"
+                      />
                     </div>
 
                     <hr className="my-4" />
@@ -291,6 +371,9 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
           addresses={addresses}
           toggleOrderDetailsModal={toggleOrderDetailsModal}
           setOrderDetails={setOrderDetails}
+          setLoyaltyPoints={setLoyaltyPoints}
+          loyaltyPoints={loyaltyPoints}
+          useLoyaltyPoints={useLoyaltyPoints}
         />
       )}
       {orderDetailsModalOpen && (
@@ -301,6 +384,8 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
           toggleCartModal={toggleCartModal}
           orderDetails={orderDetails}
           cartItemTotal={cartItemTotal}
+          loyaltyPoints={loyaltyPoints}
+          useLoyaltyPoints={useLoyaltyPoints}
         />
       )}
     </>
