@@ -8,7 +8,7 @@ import {
   MDBModalHeader,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./OrderDetailsModal.css";
 
 const OrderDetailsModal = ({
@@ -18,10 +18,26 @@ const OrderDetailsModal = ({
   setOrderDetailsModalOpen,
   orderDetails,
   cartItemTotal,
+  loyaltyPoints,
+  useLoyaltyPoints,
 }) => {
+  const [loyaltyPointsCounter, setLoyaltyPointsCounter] = useState({
+    counter: 0,
+  });
 
-  console.log("orderDetails", orderDetails);
-  
+  const Counter = (min, max) => {
+    for (let count = min; count <= max; count++) {
+      setTimeout(() => {
+        setLoyaltyPointsCounter({ counter: count });
+      }, 1000);
+    }
+    return loyaltyPointsCounter.counter;
+  };
+
+  useEffect(() => {
+    Counter(0, loyaltyPoints.totalLoyaltyPoints);
+  }, []);
+
   return (
     <>
       <MDBModal
@@ -50,6 +66,38 @@ const OrderDetailsModal = ({
               >
                 Thanks for your order
               </MDBTypography>
+              {!useLoyaltyPoints ? (
+                <>
+                  <MDBTypography tag="h5" style={{ color: "#35558a" }}>
+                    Loyalty Points Earned: {loyaltyPoints.loyaltyPointsEarned}
+                  </MDBTypography>
+
+                  <MDBTypography
+                    tag="h5"
+                    className="mb-5"
+                    style={{ color: "#35558a" }}
+                  >
+                    Total Loyalty Points: {loyaltyPointsCounter.counter}
+                  </MDBTypography>
+                </>
+              ) : (
+                <>
+                  <MDBTypography
+                    tag="h5"
+                    className="mb-5"
+                    style={{ color: "#35558a" }}
+                  >
+                    Loyalty Points Used: {loyaltyPoints.loyaltyPointsToSpend}
+                  </MDBTypography>
+                  <MDBTypography
+                    tag="h5"
+                    className="mb-5"
+                    style={{ color: "#35558a" }}
+                  >
+                    Remaining Points: {loyaltyPoints.totalLoyaltyPoints - loyaltyPoints.loyaltyPointsToSpend}
+                  </MDBTypography>
+                </>
+              )}
               <p className="mb-0" style={{ color: "#35558a" }}>
                 Payment summary
               </p>
