@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzazzBitesBackend.Models;
+using PizzazzBitesBackend.Repository.LoyaltyPoint;
 using PizzazzBitesBackend.Repository.Order;
 
 namespace PizzazzBitesBackend.Controllers;
@@ -10,11 +11,13 @@ namespace PizzazzBitesBackend.Controllers;
 public class OrderController : ControllerBase
 {
     private readonly IOrderRepository _orderRepository;
+    private readonly ILoyaltyPointRepository _loyaltyPointRepository;
     private readonly ILogger<OrderController> _logger;
 
-    public OrderController(IOrderRepository orderRepository, ILogger<OrderController> logger)
+    public OrderController(IOrderRepository orderRepository, ILoyaltyPointRepository loyaltyPointRepository, ILogger<OrderController> logger)
     {
         _orderRepository = orderRepository;
+        _loyaltyPointRepository = loyaltyPointRepository;
         _logger = logger;
     }
     
@@ -25,7 +28,8 @@ public class OrderController : ControllerBase
         try
         {
             var newOrder = await _orderRepository.AddOrder(order);
-            return Ok(new { message = "Order added successfully.", data = newOrder });
+            var totalLoyaltyPoints = await _loyaltyPointRepository.GetLoyaltyPoints();
+            return Ok(new { message = "Order added successfully.", data = newOrder, loyaltyPointsEarned = newOrder.LoyaltyPointsEarned, totalLoyaltyPoints = totalLoyaltyPoints });
         }
         catch (Exception e)
         {
