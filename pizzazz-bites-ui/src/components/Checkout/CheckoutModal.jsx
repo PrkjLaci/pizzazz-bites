@@ -25,14 +25,33 @@ const CheckoutModal = ({
   primaryAddress,
   addresses,
   setOrderDetails,
+  setLoyaltyPoints,
+  loyaltyPoints,
+  useLoyaltyPoints,
 }) => {
   const [order, setOrder] = useState({
     address: primaryAddress,
     orderProducts: cartItems,
     paymentMethod: "",
+    loyaltyPointsUsed: loyaltyPoints.loyaltyPointsToSpend,
   });
 
   const { userData } = useContext(AuthContext);
+
+  const useLoyaltyPointsOnOrder = async () => {
+    try {
+      await fetch(`${url}/api/LoyaltyPoint/use-loyalty-points`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userData.token}`,
+        },
+        body: JSON.stringify(loyaltyPoints.loyaltyPointsToSpend),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,8 +68,18 @@ const CheckoutModal = ({
       if (response.ok) {
         const responseObj = await response.json();
         setOrderDetails(responseObj.data);
+        if (useLoyaltyPoints === false) {
+          setLoyaltyPoints({
+            loyaltyPointsEarned: responseObj.loyaltyPointsEarned,
+            totalLoyaltyPoints: responseObj.totalLoyaltyPoints,
+          });
+        }
+        if (useLoyaltyPoints) {
+          await useLoyaltyPointsOnOrder();
+        }
         toast.success("Order placed successfully!");
         setCartItems([]);
+        toggleCheckoutModal();
         toggleOrderDetailsModal();
       }
     } catch (error) {
