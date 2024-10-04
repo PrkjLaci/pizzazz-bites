@@ -14,4 +14,6 @@ public class Order
     public ICollection<OrderProduct> OrderProducts { get; set; }
     public string PaymentMethod { get; set; }
     public DateTime OrderDate { get; set; } = DateTime.Now;
+    public decimal LoyaltyPointsEarned { get; set; }
+    public decimal LoyaltyPointsUsed { get; set; }
 }

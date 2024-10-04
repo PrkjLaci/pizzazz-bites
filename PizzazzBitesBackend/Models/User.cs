@@ -12,4 +12,5 @@ public class User : IdentityUser
     public ICollection<Address>? Addresses { get; set; }
     public Cart.Cart Cart { get; set; }
     public ICollection<Order>? Orders { get; set; }
+    public decimal LoyaltyPoints { get; set; }
 }
