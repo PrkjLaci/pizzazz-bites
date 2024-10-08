@@ -19,8 +19,11 @@ using PizzazzBitesBackend.Repository.Rating;
 using PizzazzBitesBackend.Repository.Salad.Seeder;
 using PizzazzBitesBackend.Repository.User;
 using PizzazzBitesBackend.Services.Authentication;
+using PizzazzBitesBackend.Services.SMTP;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+Env.Load();
 
 AddServices();
 ConfigureSwagger();
@@ -74,6 +77,7 @@ void AddServices()
     builder.Services.AddScoped<IRatingRepository, RatingRepository>();
     builder.Services.AddScoped<IOrderRepository, OrderRepository>();
     builder.Services.AddScoped<ILoyaltyPointRepository, LoyaltyPointRepository>();
+    builder.Services.AddScoped<IContactUs, ContactUs>();
     
     builder.Services.AddHttpContextAccessor();
 }
