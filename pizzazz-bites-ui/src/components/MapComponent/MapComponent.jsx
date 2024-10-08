@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapComponent.css";
@@ -9,9 +9,43 @@ import {
   MDBTextArea,
   MDBBtn,
 } from "mdb-react-ui-kit";
+import url from "../../../utils/url";
+import { toast } from "react-toastify";
 
 const MapComponent = () => {
   const position = [42.80177, 10.365933];
+  const [contactUsForm, setContactUsForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${url}/api/ContactUs/contact-us`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contactUsForm),
+      });
+      if (response.ok) {
+        toast.success("Message sent successfully");
+        setContactUsForm({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    
+  };
 
   return (
     <section className="text-center mb-5 p-5 map-container">
@@ -30,40 +64,68 @@ const MapComponent = () => {
           </MapContainer>
         </div>
         <div className="col-lg-7">
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="row">
               <div className="col-md-9">
                 <MDBRow className="mb-4">
                   <MDBCol>
                     <MDBInput
-                      label="First name"
-                      id="form3FirstName"
+                      label="Name"
+                      id="name"
                       labelClass="map-form-label"
+                      required
+                      onChange={(e) => {
+                        setContactUsForm({
+                          ...contactUsForm,
+                          name: e.target.value,
+                        });
+                      }}
                     />
                   </MDBCol>
                   <MDBCol>
                     <MDBInput
                       label="Email Address"
-                      id="form3Email"
+                      id="email"
                       labelClass="map-form-label"
+                      type="email"
+                      required
+                      onChange={(e) => {
+                        setContactUsForm({
+                          ...contactUsForm,
+                          email: e.target.value,
+                        });
+                      }}
                     />
                   </MDBCol>
                 </MDBRow>
                 <MDBInput
                   type="text"
                   label="Subject"
-                  id="form3Subject"
+                  id="subject"
                   v-model="form3Subject"
                   wrapperClass="mb-4"
                   labelClass="map-form-label"
+                  onChange={(e) => {
+                    setContactUsForm({
+                      ...contactUsForm,
+                      subject: e.target.value,
+                    });
+                  }}
                 />
                 <MDBTextArea
                   label="Message"
-                  id="form3Textarea"
+                  id="message"
+                  required
                   wrapperClass="mb-4"
                   labelClass="map-form-label"
+                  onChange={(e) => {
+                    setContactUsForm({
+                      ...contactUsForm,
+                      message: e.target.value,
+                    });
+                  }}
                 />
-                <MDBBtn color="primary" className="mb-4">
+                <MDBBtn color="primary" className="mb-4" type="submit">
                   {" "}
                   Send{" "}
                 </MDBBtn>
