@@ -85,3 +85,5 @@ $RECYCLE.BIN/
 PizzazzBitesBackend/Migrations/ApplicationDbContextModelSnapshot.cs
 pizzazz-bites.sln
 Migrations/
+
+.env
