@@ -74,6 +74,7 @@ const MapComponent = () => {
                       id="name"
                       labelClass="map-form-label"
                       required
+                      value={contactUsForm.name}
                       onChange={(e) => {
                         setContactUsForm({
                           ...contactUsForm,
@@ -89,6 +90,7 @@ const MapComponent = () => {
                       labelClass="map-form-label"
                       type="email"
                       required
+                      value={contactUsForm.email}
                       onChange={(e) => {
                         setContactUsForm({
                           ...contactUsForm,
@@ -105,6 +107,7 @@ const MapComponent = () => {
                   v-model="form3Subject"
                   wrapperClass="mb-4"
                   labelClass="map-form-label"
+                  value={contactUsForm.subject}
                   onChange={(e) => {
                     setContactUsForm({
                       ...contactUsForm,
@@ -118,6 +121,7 @@ const MapComponent = () => {
                   required
                   wrapperClass="mb-4"
                   labelClass="map-form-label"
+                  value={contactUsForm.message}
                   onChange={(e) => {
                     setContactUsForm({
                       ...contactUsForm,
