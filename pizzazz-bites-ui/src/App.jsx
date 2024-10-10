@@ -9,6 +9,7 @@ import Home from "./pages/Home/Home.jsx";
 import Footer from "../src/components/Footer/Footer.jsx";
 import MenuItem from "./pages/MenuItem/MenuItem.jsx";
 import siteHeaderItems from "../utils/siteHeaderItems.js";
+import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 
 function App() {
   const [page, setPage] = useState(1);
@@ -54,6 +55,7 @@ function App() {
               />
             );
           })}
+          <Route path="about-us" element={<AboutUs />} />
         </Routes>
       </main>
       <Footer />
