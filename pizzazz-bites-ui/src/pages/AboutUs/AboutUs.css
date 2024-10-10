@@ -1,0 +1,75 @@
+.video-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    max-width: 1920px;
+    margin: 20px auto;
+  }
+  
+  .video {
+    width: 100%;
+    position: relative;
+  }
+  
+  .video video {
+    width: 100%;
+    height: 40rem;
+    object-fit: cover;
+  }
+  
+  .video-text-overlay {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    z-index: 1;
+  }
+
+  .video-heading-overlay {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    z-index: 1;
+  }
+
+  .about-us-description {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    box-shadow: inset 0px 0px 20px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    padding: 50px 50px 50px 50px;
+  }
+  
+  .about-us-statistics-header {
+    font-size: 4rem;
+    color: orangered;
+}
+
+.about-us-statistics-paragraph {
+    font-size: 1.5rem;
+    color: white;
+  }
+
+  .about-us-chefs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-us-chef-card {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
