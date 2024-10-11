@@ -28,12 +28,14 @@ const CheckoutModal = ({
   setLoyaltyPoints,
   loyaltyPoints,
   useLoyaltyPoints,
+  cartItemTotal
 }) => {
   const [order, setOrder] = useState({
     address: primaryAddress,
     orderProducts: cartItems,
     paymentMethod: "",
     loyaltyPointsUsed: loyaltyPoints.loyaltyPointsToSpend,
+    totalPrice: cartItemTotal(cartItems),
   });
 
   const { userData } = useContext(AuthContext);
