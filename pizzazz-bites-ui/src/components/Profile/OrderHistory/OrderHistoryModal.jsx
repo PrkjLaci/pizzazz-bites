@@ -103,8 +103,8 @@ const OrderHistoryModal = ({ isOpen, toggleModal }) => {
                   </p>
                   <p>
                     <strong>Total Price: </strong>
-                    {order.totalPrice} (
-                    {order.totalPrice >= 4000 ? "" : "shipping fee included"})
+                    {order.totalPrice} 
+                    {order.totalPrice >= 4000 ? "(free shipping)" : ("shipping fee included")}
                   </p>
                   <MDBAccordion>
                     <MDBAccordionItem
@@ -117,6 +117,7 @@ const OrderHistoryModal = ({ isOpen, toggleModal }) => {
                             <th>#</th>
                             <th>Name</th>
                             <th>Price</th>
+                            <th>Quantity</th>
                           </tr>
                         </MDBTableHead>
                         <MDBTableBody>
@@ -125,6 +126,7 @@ const OrderHistoryModal = ({ isOpen, toggleModal }) => {
                               <td>{item.product.id}</td>
                               <td>{item.product.name}</td>
                               <td>{item.product.price}.-</td>
+                              <td>{item.quantity}</td>
                             </tr>
                           ))}
                         </MDBTableBody>
