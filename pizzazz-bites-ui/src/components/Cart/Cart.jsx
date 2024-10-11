@@ -374,6 +374,7 @@ const Cart = ({ toggleSignInModal, toggleCartModal }) => {
           setLoyaltyPoints={setLoyaltyPoints}
           loyaltyPoints={loyaltyPoints}
           useLoyaltyPoints={useLoyaltyPoints}
+          cartItemTotal={cartItemTotal}
         />
       )}
       {orderDetailsModalOpen && (
