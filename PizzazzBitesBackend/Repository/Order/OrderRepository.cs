@@ -60,7 +60,9 @@ public class OrderRepository : IOrderRepository
                         if (cp.Product != null) return cp.Product.Price * cp.Quantity;
                         return 0;
                     }) * 0.01m)
-                    : 0
+                    : 0,
+                TotalPrice = order.TotalPrice
+                
             };
             
             await _loyaltyPointRepository.AddLoyaltyPoint(Math.Round(newOrder.LoyaltyPointsEarned));
