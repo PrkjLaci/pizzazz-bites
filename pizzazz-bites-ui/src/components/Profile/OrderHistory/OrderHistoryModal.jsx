@@ -117,6 +117,7 @@ const OrderHistoryModal = ({ isOpen, toggleModal }) => {
                             <th>#</th>
                             <th>Name</th>
                             <th>Price</th>
+                            <th>Quantity</th>
                           </tr>
                         </MDBTableHead>
                         <MDBTableBody>
@@ -125,6 +126,7 @@ const OrderHistoryModal = ({ isOpen, toggleModal }) => {
                               <td>{item.product.id}</td>
                               <td>{item.product.name}</td>
                               <td>{item.product.price}.-</td>
+                              <td>{item.quantity}</td>
                             </tr>
                           ))}
                         </MDBTableBody>
