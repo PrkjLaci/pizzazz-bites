@@ -16,4 +16,5 @@ public class Order
     public DateTime OrderDate { get; set; } = DateTime.Now;
     public decimal LoyaltyPointsEarned { get; set; }
     public decimal LoyaltyPointsUsed { get; set; }
+    public decimal TotalPrice { get; set; }
 }
